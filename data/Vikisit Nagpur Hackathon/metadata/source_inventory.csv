@@ -1,0 +1,27 @@
+category,source,type,availability,what_it_contains,url,status_note
+CGWB,Nagpur District AAP 2019-20,primary,local,347 groundwater rows; Annexure V 263 shallow + Annexure VI 84 deep,https://cgwb.gov.in/sites/default/files/2022-11/6_nagpur_district.pdf,verified row-level tables
+CGWB,Maharashtra Ground Water Year Book 2024-25,primary,local,Latest yearbook uploaded by user,,uploaded; deeper mining not yet completed
+CGWB,Maharashtra Ground Water Year Book 2022-23,primary,local,State yearbook; useful newer groundwater layer,,uploaded
+CGWB,Maharashtra Ground Water Year Book 2021-22,primary,local,Nagpur shallow sampling and location-level examples,,uploaded
+CGWB,Dynamic Ground Water Resources 2023 Maharashtra,primary,local,Assessment-unit extraction status; not a point dataset,,uploaded
+CGWB,Saoner Aquifer Management Plan 2024,primary,local,Block-level NAQUIM 2.0,,uploaded
+CGWB,Katol Aquifer Management Plan 2024,primary,local,Block-level NAQUIM 2.0,,uploaded
+CGWB,Chandrabhaga Watershed Pilot 2015,primary,local,"Pilot aquifer mapping, well-scale information",,uploaded
+OCW,ESR/command-area PDFs,primary,web-only,ESR/GSR -> localities -> zone + estimated supply categories,https://www.ocwindia.com/assets/pdf/Laxmi-Nagar-New-ESR.pdf,7 public PDFs indexed
+OCW,Areas of Service,primary,web-only,Service-zone vocabulary,https://ocwindia.com/Area_of_services,public page
+OCW,Water Management,primary,web-only,"68 reservoirs, WTP/network operations overview",https://ocwindia.com/Water_management,public page
+OCW,Latest Updates,primary,web-only,"Jaitala, Wanjri interventions; Digital Twin mention",https://www.ocwindia.com/media/media_released/News,operator-reported operational data
+OCWGIS,OCWGIS 1.7 XAPK,primary,local,Static scan of ArcGIS/.NET MAUI app,https://play.google.com/store/apps/details?hl=en_SG&id=com.esriindia.ocwgis,endpoint not exposed by simple string scan
+NMC/NEERI,Environment Status Report 2023-24,primary,web-only,"3 rivers, 10 lakes, 12 groundwater sources; physchem, metals, bacteria",https://nmcnagpur.gov.in/assets/300/2025/08/Public-Notices/ESR_Final_Report_2023-2024.pdf,high-value current-ish source
+NMC/NEERI,Environment Status Report 2022-23,primary,web-only,12 groundwater locations; river organic/nutrient and bacteriology tables,https://www.nmcnagpur.gov.in/assets/300/2025/08/Public-Notices/ESR_final_Report_2022-2023.pdf,high-value previous-year comparison
+NMC,Monsoon Preparedness Plan 2023,primary,web-only,66 low-lying/flood areas; 22 slum houses water-stagnation damage; 85 houses hollow areas adjacent rivers/nallas,https://nmcnagpur.gov.in/assets/300/2025/02/mediafiles/Mansoon_Preparedness_Plan.pdf,aggregate flood evidence
+District Nagpur,Disaster Management page,primary,web-only,Current District Disaster Management Plan link; page last updated Jul 2026,https://nagpur.gov.in/disaster-management/,current page; linked PDF not downloaded
+MPCB,Nag River Basin Action Plan 2011,primary,web-only,5 river monitoring stations + historical quality/actions,https://mpcb.gov.in/sites/default/files/focus-area-reports-documents/Modified_Nag_River_Basin_Action_Plan_2011.pdf,public PDF URL
+MPCB,October 2025 MPR,primary,web-only,STP inventory/capacity/status; current-ish program metrics,https://www.mpcb.gov.in/sites/default/files/MPR_Merged_Oct_2025.pdf,public PDF URL
+MPCB,NRCD STP project status,primary,web-only,Nag River project cost/status page,https://mpcb.gov.in/index.php/en/nrcd-stp-project-status,public status page
+PIB,Nag River project record 2021,primary,web-only,Government project approval record,https://www.pib.gov.in/Pressreleaseshare.aspx?PRID=1701984,supporting government record
+Research,Groundwater Analysis in the Vicinity of Nag River 2014,academic,local,Named groundwater sites around Nag River,,uploaded
+Research,Integrated Nag River water quality 2026,academic,local,"9 surface-water samples, Feb 2023, 20 parameters",https://link.springer.com/article/10.1007/s13201-025-02737-2,uploaded
+Research,Nag & Pili Rivers 2026,academic,web-only,4 sites Wathoda/Chhindwara/Jawaharlal/Hudkeshwar; physchem + RQ,https://link.springer.com/article/10.1007/s44274-026-00840-y,published Jul 2026
+Research,Nag River cytotoxicity 2021,academic,local,Named river-water sampling/biological effects,,uploaded
+FAO,Irrigation salinity crop table,primary,web-only,ECw 0/10/25/50% yield decrement tables,https://www.fao.org/4/x5870e/x5870e07.htm,verified source table

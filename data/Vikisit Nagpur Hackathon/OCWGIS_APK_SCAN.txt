@@ -1,0 +1,16 @@
+OCWGIS 1.7 APK scan notes
+========================
+Package: com.esriindia.ocwgis
+XAPK SHA256: c36fefa8d1708eaed4b167780f8ac3d6da13bdbc512faea6363300b24a42327d
+XAPK SHA1:    b9dc1a367a1fea0710c0b7f7dd7d82655aa4972c
+
+Observed:
+- .NET MAUI app with ArcGIS Runtime components
+- OCWESRIGIS managed assembly
+- ArcGIS Runtime / Portal-related classes
+- No obvious literal FeatureServer/MapServer/ArcGIS REST URL exposed by simple byte-string scan
+- Source/PDB fragment: D:\OCWNEWPROJ\
+- App store description explicitly says: layer search, identify, refresh within 300m, editing/saving, basemaps, routing, geotagged photos.
+
+Interpretation:
+The app clearly consumes GIS layers, but the public APK alone did not expose the GIS service endpoint. A runtime traffic capture is the next technical step. Only use normal, authorized app access; do not attempt to circumvent authentication.

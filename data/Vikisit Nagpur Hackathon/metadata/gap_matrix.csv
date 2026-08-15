@@ -1,0 +1,10 @@
+item,name,status,evidence_and_gap,next_action_or_sources
+F1,Water source/reservoir assignment,partial,Public OCW ESR PDFs expose zone/ESR/GSR/locality and historical supply categories. Exact current locality->reservoir/command-area GIS is not fully assembled.,OCW PDFs; runtime OCWGIS investigation
+F2,Usability verdict,green_with_constraints,347 CGWB chemistry points plus NMC 12 groundwater samples with bacteriology/metals. Do not say safe to drink; use parameter-tested wording.,CGWB; NMC ESR 2022-23/2023-24
+F3,Crop verdict,green_with_constraints,FAO ECw tables verified; conversion/assumptions must be explicit and not farm-specific.,FAO; CGWB EC
+F4,Map of known measurements,green,347 CGWB points + NMC rivers/lakes/groundwater + academic/MPCB layers. No interpolation.,CGWB; NMC; MPCB; research
+F5,Which outfalls are upstream,green_with_constraints,12 named outfalls and 5 river stations; only segment-level attribution because outfall discharge volumes are unavailable.,Audit; MPCB/OCW/NMC
+F6,Citizen sample entry,green_with_constraints,EC/TDS sensor supports irrigation screening/change detection; not nitrate/fluoride/coliform or potable verdict.,Audit
+Q2,Rainfall response/flood risk,partial,Public plan gives 66 low-lying/flood areas + 22 slum houses + 85 hollow-area houses; current disaster plan exists. No defensible rainfall-mm->depth threshold yet.,NMC monsoon plan; District disaster page
+Q3,Is anyone fixing it,partial_to_green,"Project/intervention records exist: Jaitala, Wanjri, Digital Twin, Nag River STP program. Systematic before/after environmental outcomes still missing.",OCW news; MPCB project status
+OCWGIS,Runtime GIS endpoint,unknown,Static XAPK scan did not expose literal public FeatureServer/MapServer URL. Runtime traffic inspection is next; no auth bypass.,OCWGIS 1.7 XAPK

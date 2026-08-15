@@ -1,0 +1,10 @@
+entity,type,metric,value,unit,source_note
+Nag River project,project_status,total project cost estimate,1926.99,crore,September 2025 public status page
+Nag River project,project_status,present treatment capacity,345.3,MLD,MPCB October 2025 MPR
+Nag River project,project_status,treatment gap,174.7,MLD,MPCB October 2025 MPR
+Nag River project,project_status,STPs under construction capacity,58.2,MLD,MPCB October 2025 MPR
+Bhandewadi,STP,capacity,130.0,MLD,MPCB October 2025 MPR
+Mankapur,STP,capacity,5.0,MLD,MPCB October 2025 MPR
+Mokshadham,STP,capacity,5.0,MLD,MPCB October 2025 MPR
+Kachimet,STP,capacity,1.0,MLD,MPCB October 2025 MPR
+Sonegaon,STP,capacity,0.3,MLD,MPCB October 2025 MPR

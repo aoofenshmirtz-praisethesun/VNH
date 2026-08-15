@@ -1,0 +1,26 @@
+Vibe coding prompts (for building)
+
+Vibe Code Source (vibecodesource.com) — free, open-source prompt libraries and workflows for Claude Code, Cursor, Copilot. Probably the best free starting point. 
+Vibe Code Source
+21st.dev — concrete React/Next.js UI patterns you can copy directly or turn into much stronger frontend prompts. Great for making your demo look polished fast. 
+Pinggy
+PromptHub and PromptDen — straight developer-focused prompt collections.
+Anthropic's own prompt library (docs.claude.com) — Claude-optimized, well-tested, free.
+
+Idea and feature inspiration
+
+Devpost project gallery (devpost.com/software) — filter by past hackathons and browse thousands of submissions. This is the single most useful one. Look at what won similar-themed hackathons, then look at what the judges' criteria were.
+Product Hunt — scan recent launches in your theme's category for feature ideas people are actually paying for.
+GitHub Trending + r/SideProject and r/vibecoding — good for spotting gaps.
+Hacker News "Ask HN: What are you working on?" threads — raw problem statements, often better than idea lists.
+
+General premade prompt libraries
+
+FlowGPT — 10M+ community prompts, free, huge but noisy quality. 
+ToolixLab
+AIPRM — 5,400+ verified templates with a free tier, integrates into the ChatGPT interface directly. 
+ToolixLab
+prompts.chat (the "Awesome ChatGPT Prompts" project) — clean, curated, no signup.
+Snack Prompt — topic-based browsing across development, DevOps, and UI/UX, good if you like discovering by category. 
+Pinggy
+PromptBase — paid marketplace; skip it for a hackathon.

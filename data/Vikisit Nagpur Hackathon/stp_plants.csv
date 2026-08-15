@@ -1,0 +1,14 @@
+Location of STP,Coordinate s of STP (Latitude and Longitude),STP Commi ssioned in (year),Status (Operationa l/Non- Operational /Under Constructio,STP Install ed Capaci ty (MLD),Actual utilizatio n of installed capacity (MLD),Technology (UASB/ASP /OP/SBR/M BR/FAB etc.),Conse nt Statu s
+"Bhandewadi , Nagpur",21.1378096: 79.1590347,2016,nO)p erational,130,130,SBR,"Conse nt to operat e receiv ed by MPC B Mum bai for all 12 STPs on 15.12. 2022, valid upto 30.04. 2027"
+"Bhandewadi , Nagpur",21.1381883: 79.155832,2018,Operational,200,200,SBR,
+"Mokshdham , Nagpur",21.137628: 79.088943,2017,Operational,5,5,MBBR,
+"Mankapur, Nagpur",21.190320: 79.079131,2017,Operational,5,5,MBBR,
+Somalwada- 1,21.086964: 79.074979,2021,Operational,20,20,SBR,
+Hazaripaha d,21.166345: 79.026774,2019,Operational,4,4,SBR,
+Dabha,21.171881: 79.011537,2018,Operational,5,5,SBR,
+Sonegaon,21.099773: 79.049576,2019,Operational,0.3,0.3,Phytorid Technology,
+Kachimet,21.15095: 79.020094,2018,Operational,1,1,Soil Bio Technology,
+Somalwada- 2,21.088322: 79.07091,2022,Operational,20,20,SBR,
+Itabhatti,21.172177: 79.121171,2022,Operational,10,10,SBR,
+Ambazari,21.129474: 79.018274,2021,Operational,3.2,3.2,Phytorid Technology,
+Narsala,21.087: 79.192,WIP,Trial run,20,20,SBR,

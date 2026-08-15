@@ -1,0 +1,14 @@
+OCW | ESR/command-area PDFs | https://www.ocwindia.com/assets/pdf/Laxmi-Nagar-New-ESR.pdf | 7 public PDFs indexed
+OCW | Areas of Service | https://ocwindia.com/Area_of_services | public page
+OCW | Water Management | https://ocwindia.com/Water_management | public page
+OCW | Latest Updates | https://www.ocwindia.com/media/media_released/News | operator-reported operational data
+NMC/NEERI | Environment Status Report 2023-24 | https://nmcnagpur.gov.in/assets/300/2025/08/Public-Notices/ESR_Final_Report_2023-2024.pdf | high-value current-ish source
+NMC/NEERI | Environment Status Report 2022-23 | https://www.nmcnagpur.gov.in/assets/300/2025/08/Public-Notices/ESR_final_Report_2022-2023.pdf | high-value previous-year comparison
+NMC | Monsoon Preparedness Plan 2023 | https://nmcnagpur.gov.in/assets/300/2025/02/mediafiles/Mansoon_Preparedness_Plan.pdf | aggregate flood evidence
+District Nagpur | Disaster Management page | https://nagpur.gov.in/disaster-management/ | current page; linked PDF not downloaded
+MPCB | Nag River Basin Action Plan 2011 | https://mpcb.gov.in/sites/default/files/focus-area-reports-documents/Modified_Nag_River_Basin_Action_Plan_2011.pdf | public PDF URL
+MPCB | October 2025 MPR | https://www.mpcb.gov.in/sites/default/files/MPR_Merged_Oct_2025.pdf | public PDF URL
+MPCB | NRCD STP project status | https://mpcb.gov.in/index.php/en/nrcd-stp-project-status | public status page
+PIB | Nag River project record 2021 | https://www.pib.gov.in/Pressreleaseshare.aspx?PRID=1701984 | supporting government record
+Research | Nag & Pili Rivers 2026 | https://link.springer.com/article/10.1007/s44274-026-00840-y | published Jul 2026
+FAO | Irrigation salinity crop table | https://www.fao.org/4/x5870e/x5870e07.htm | verified source table

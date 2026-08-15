@@ -1,0 +1,4 @@
+source,indicator,count,unit,note,source_url
+NMC Monsoon Preparedness Plan 2023,low_lying_flood_areas,66,locations/areas,Aggregate count indexed from official plan,https://nmcnagpur.gov.in/assets/300/2025/02/mediafiles/Mansoon_Preparedness_Plan.pdf
+NMC Monsoon Preparedness Plan 2023,slum_houses_damaged_water_stagnation,22,houses,Aggregate count indexed from official plan,https://nmcnagpur.gov.in/assets/300/2025/02/mediafiles/Mansoon_Preparedness_Plan.pdf
+NMC Monsoon Preparedness Plan 2023,houses_hollow_areas_adjacent_rivers_nallas,85,houses,Aggregate count indexed from official plan,https://nmcnagpur.gov.in/assets/300/2025/02/mediafiles/Mansoon_Preparedness_Plan.pdf
