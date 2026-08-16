@@ -17,6 +17,8 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# System files
+# System & Prompt files
 .DS_Store
 Thumbs.db
+ANTIGRAVITY_MASTER_PROMPT*
+*.pdf
