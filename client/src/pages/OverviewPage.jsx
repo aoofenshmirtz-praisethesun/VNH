@@ -77,10 +77,11 @@ export const OverviewPage = () => {
   };
 
   // Metric stats
-  const totalZones = zones.length;
-  const highRiskCount = zones.filter(z => z.latest_nrw_pct > 45).length;
+  const safeZones = Array.isArray(zones) ? zones : [];
+  const totalZones = safeZones.length;
+  const highRiskCount = safeZones.filter(z => z.latest_nrw_pct > 45).length;
   const avgNrw = totalZones > 0 
-    ? (zones.reduce((acc, z) => acc + z.latest_nrw_pct, 0) / totalZones).toFixed(1)
+    ? (safeZones.reduce((acc, z) => acc + z.latest_nrw_pct, 0) / totalZones).toFixed(1)
     : 0;
 
   return (
@@ -230,7 +231,7 @@ export const OverviewPage = () => {
         </div>
       ) : (
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '1.25rem' }}>
-          {zones.map((zone) => {
+          {safeZones.map((zone) => {
             const statusClass = getStatusClass(zone.latest_nrw_pct);
             const statusLabel = getStatusLabel(zone.latest_nrw_pct);
 
