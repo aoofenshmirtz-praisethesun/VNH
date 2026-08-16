@@ -8,9 +8,11 @@ server/node_modules/
 .env.local
 *.env
 
-# Production builds
+# Production builds & Cache
 client/dist/
 client/build/
+.vite/
+client/.vite/
 
 # Logs
 npm-debug.log*
