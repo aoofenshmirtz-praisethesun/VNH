@@ -4,6 +4,7 @@
 
 ![NeerNetra Banner](https://img.shields.io/badge/NMC-Water%20Monitoring-0284c7?style=for-the-badge&logo=droplet)
 ![Tech Stack](https://img.shields.io/badge/Stack-MERN%20%2B%20Vite%20%2B%20Gemini%20AI-38bdf8?style=for-the-badge)
+![Version](https://img.shields.io/badge/Version-v1.0.0-10b981?style=for-the-badge)
 
 ---
 
