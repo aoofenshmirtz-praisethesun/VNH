@@ -1,0 +1,1002 @@
+[
+  {
+    "zone": "ASHI NAGAR",
+    "month": "2025-09",
+    "mld_supplied": 222.57,
+    "nrw_pct": 43.4,
+    "tanker_count": 11,
+    "supply_hrs_real": "02-04",
+    "uploaded_by": "seed_script",
+    "is_synthetic": true
+  },
+  {
+    "zone": "ASHI NAGAR",
+    "month": "2025-10",
+    "mld_supplied": 234.31,
+    "nrw_pct": 44.2,
+    "tanker_count": 10,
+    "supply_hrs_real": "02-04",
+    "uploaded_by": "seed_script",
+    "is_synthetic": true
+  },
+  {
+    "zone": "ASHI NAGAR",
+    "month": "2025-11",
+    "mld_supplied": 227.3,
+    "nrw_pct": 46.0,
+    "tanker_count": 13,
+    "supply_hrs_real": "02-04",
+    "uploaded_by": "seed_script",
+    "is_synthetic": true
+  },
+  {
+    "zone": "ASHI NAGAR",
+    "month": "2025-12",
+    "mld_supplied": 228.41,
+    "nrw_pct": 47.1,
+    "tanker_count": 14,
+    "supply_hrs_real": "02-04",
+    "uploaded_by": "seed_script",
+    "is_synthetic": true
+  },
+  {
+    "zone": "ASHI NAGAR",
+    "month": "2026-01",
+    "mld_supplied": 230.08,
+    "nrw_pct": 49.0,
+    "tanker_count": 12,
+    "supply_hrs_real": "02-04",
+    "uploaded_by": "seed_script",
+    "is_synthetic": true
+  },
+  {
+    "zone": "ASHI NAGAR",
+    "month": "2026-02",
+    "mld_supplied": 220.74,
+    "nrw_pct": 50.9,
+    "tanker_count": 18,
+    "supply_hrs_real": "02-04",
+    "uploaded_by": "seed_script",
+    "is_synthetic": true
+  },
+  {
+    "zone": "ASHI NAGAR",
+    "month": "2026-03",
+    "mld_supplied": 233.25,
+    "nrw_pct": 52.2,
+    "tanker_count": 16,
+    "supply_hrs_real": "02-04",
+    "uploaded_by": "seed_script",
+    "is_synthetic": true
+  },
+  {
+    "zone": "ASHI NAGAR",
+    "month": "2026-04",
+    "mld_supplied": 218.43,
+    "nrw_pct": 54.3,
+    "tanker_count": 18,
+    "supply_hrs_real": "02-04",
+    "uploaded_by": "seed_script",
+    "is_synthetic": true
+  },
+  {
+    "zone": "ASHI NAGAR",
+    "month": "2026-05",
+    "mld_supplied": 222.94,
+    "nrw_pct": 55.3,
+    "tanker_count": 18,
+    "supply_hrs_real": "02-04",
+    "uploaded_by": "seed_script",
+    "is_synthetic": true
+  },
+  {
+    "zone": "ASHI NAGAR",
+    "month": "2026-06",
+    "mld_supplied": 224.74,
+    "nrw_pct": 57.3,
+    "tanker_count": 22,
+    "supply_hrs_real": "02-04",
+    "uploaded_by": "seed_script",
+    "is_synthetic": true
+  },
+  {
+    "zone": "DHANTOLI",
+    "month": "2025-09",
+    "mld_supplied": 252.92,
+    "nrw_pct": 29.5,
+    "tanker_count": 1,
+    "supply_hrs_real": "02-04",
+    "uploaded_by": "seed_script",
+    "is_synthetic": true
+  },
+  {
+    "zone": "DHANTOLI",
+    "month": "2025-10",
+    "mld_supplied": 266.26,
+    "nrw_pct": 31.1,
+    "tanker_count": 4,
+    "supply_hrs_real": "02-04",
+    "uploaded_by": "seed_script",
+    "is_synthetic": true
+  },
+  {
+    "zone": "DHANTOLI",
+    "month": "2025-11",
+    "mld_supplied": 258.3,
+    "nrw_pct": 32.4,
+    "tanker_count": 2,
+    "supply_hrs_real": "02-04",
+    "uploaded_by": "seed_script",
+    "is_synthetic": true
+  },
+  {
+    "zone": "DHANTOLI",
+    "month": "2025-12",
+    "mld_supplied": 259.56,
+    "nrw_pct": 34.4,
+    "tanker_count": 4,
+    "supply_hrs_real": "02-04",
+    "uploaded_by": "seed_script",
+    "is_synthetic": true
+  },
+  {
+    "zone": "DHANTOLI",
+    "month": "2026-01",
+    "mld_supplied": 261.45,
+    "nrw_pct": 36.4,
+    "tanker_count": 6,
+    "supply_hrs_real": "02-04",
+    "uploaded_by": "seed_script",
+    "is_synthetic": true
+  },
+  {
+    "zone": "DHANTOLI",
+    "month": "2026-02",
+    "mld_supplied": 250.85,
+    "nrw_pct": 38.2,
+    "tanker_count": 4,
+    "supply_hrs_real": "02-04",
+    "uploaded_by": "seed_script",
+    "is_synthetic": true
+  },
+  {
+    "zone": "DHANTOLI",
+    "month": "2026-03",
+    "mld_supplied": 265.06,
+    "nrw_pct": 39.3,
+    "tanker_count": 6,
+    "supply_hrs_real": "02-04",
+    "uploaded_by": "seed_script",
+    "is_synthetic": true
+  },
+  {
+    "zone": "DHANTOLI",
+    "month": "2026-04",
+    "mld_supplied": 248.21,
+    "nrw_pct": 40.2,
+    "tanker_count": 7,
+    "supply_hrs_real": "02-04",
+    "uploaded_by": "seed_script",
+    "is_synthetic": true
+  },
+  {
+    "zone": "DHANTOLI",
+    "month": "2026-05",
+    "mld_supplied": 253.35,
+    "nrw_pct": 41.1,
+    "tanker_count": 8,
+    "supply_hrs_real": "02-04",
+    "uploaded_by": "seed_script",
+    "is_synthetic": true
+  },
+  {
+    "zone": "DHANTOLI",
+    "month": "2026-06",
+    "mld_supplied": 255.38,
+    "nrw_pct": 42.8,
+    "tanker_count": 9,
+    "supply_hrs_real": "02-04",
+    "uploaded_by": "seed_script",
+    "is_synthetic": true
+  },
+  {
+    "zone": "DHARAMPETH",
+    "month": "2025-09",
+    "mld_supplied": 35.41,
+    "nrw_pct": 33.3,
+    "tanker_count": 1,
+    "supply_hrs_real": "18-24",
+    "uploaded_by": "seed_script",
+    "is_synthetic": true
+  },
+  {
+    "zone": "DHARAMPETH",
+    "month": "2025-10",
+    "mld_supplied": 37.28,
+    "nrw_pct": 32.9,
+    "tanker_count": 5,
+    "supply_hrs_real": "18-24",
+    "uploaded_by": "seed_script",
+    "is_synthetic": true
+  },
+  {
+    "zone": "DHARAMPETH",
+    "month": "2025-11",
+    "mld_supplied": 36.16,
+    "nrw_pct": 33.2,
+    "tanker_count": 3,
+    "supply_hrs_real": "18-24",
+    "uploaded_by": "seed_script",
+    "is_synthetic": true
+  },
+  {
+    "zone": "DHARAMPETH",
+    "month": "2025-12",
+    "mld_supplied": 36.34,
+    "nrw_pct": 32.5,
+    "tanker_count": 3,
+    "supply_hrs_real": "18-24",
+    "uploaded_by": "seed_script",
+    "is_synthetic": true
+  },
+  {
+    "zone": "DHARAMPETH",
+    "month": "2026-01",
+    "mld_supplied": 36.6,
+    "nrw_pct": 31.8,
+    "tanker_count": 1,
+    "supply_hrs_real": "18-24",
+    "uploaded_by": "seed_script",
+    "is_synthetic": true
+  },
+  {
+    "zone": "DHARAMPETH",
+    "month": "2026-02",
+    "mld_supplied": 35.12,
+    "nrw_pct": 32.8,
+    "tanker_count": 3,
+    "supply_hrs_real": "18-24",
+    "uploaded_by": "seed_script",
+    "is_synthetic": true
+  },
+  {
+    "zone": "DHARAMPETH",
+    "month": "2026-03",
+    "mld_supplied": 37.11,
+    "nrw_pct": 32.9,
+    "tanker_count": 3,
+    "supply_hrs_real": "18-24",
+    "uploaded_by": "seed_script",
+    "is_synthetic": true
+  },
+  {
+    "zone": "DHARAMPETH",
+    "month": "2026-04",
+    "mld_supplied": 34.75,
+    "nrw_pct": 33.6,
+    "tanker_count": 5,
+    "supply_hrs_real": "18-24",
+    "uploaded_by": "seed_script",
+    "is_synthetic": true
+  },
+  {
+    "zone": "DHARAMPETH",
+    "month": "2026-05",
+    "mld_supplied": 35.47,
+    "nrw_pct": 33.1,
+    "tanker_count": 0,
+    "supply_hrs_real": "18-24",
+    "uploaded_by": "seed_script",
+    "is_synthetic": true
+  },
+  {
+    "zone": "DHARAMPETH",
+    "month": "2026-06",
+    "mld_supplied": 35.75,
+    "nrw_pct": 32.7,
+    "tanker_count": 1,
+    "supply_hrs_real": "18-24",
+    "uploaded_by": "seed_script",
+    "is_synthetic": true
+  },
+  {
+    "zone": "GANDHIBAGH",
+    "month": "2025-09",
+    "mld_supplied": 5.06,
+    "nrw_pct": 31.8,
+    "tanker_count": 4,
+    "supply_hrs_real": "UNKNOWN",
+    "uploaded_by": "seed_script",
+    "is_synthetic": true
+  },
+  {
+    "zone": "GANDHIBAGH",
+    "month": "2025-10",
+    "mld_supplied": 5.33,
+    "nrw_pct": 32.6,
+    "tanker_count": 1,
+    "supply_hrs_real": "UNKNOWN",
+    "uploaded_by": "seed_script",
+    "is_synthetic": true
+  },
+  {
+    "zone": "GANDHIBAGH",
+    "month": "2025-11",
+    "mld_supplied": 5.17,
+    "nrw_pct": 32.9,
+    "tanker_count": 2,
+    "supply_hrs_real": "UNKNOWN",
+    "uploaded_by": "seed_script",
+    "is_synthetic": true
+  },
+  {
+    "zone": "GANDHIBAGH",
+    "month": "2025-12",
+    "mld_supplied": 5.19,
+    "nrw_pct": 33.7,
+    "tanker_count": 3,
+    "supply_hrs_real": "UNKNOWN",
+    "uploaded_by": "seed_script",
+    "is_synthetic": true
+  },
+  {
+    "zone": "GANDHIBAGH",
+    "month": "2026-01",
+    "mld_supplied": 5.23,
+    "nrw_pct": 33.2,
+    "tanker_count": 1,
+    "supply_hrs_real": "UNKNOWN",
+    "uploaded_by": "seed_script",
+    "is_synthetic": true
+  },
+  {
+    "zone": "GANDHIBAGH",
+    "month": "2026-02",
+    "mld_supplied": 5.02,
+    "nrw_pct": 33.4,
+    "tanker_count": 1,
+    "supply_hrs_real": "UNKNOWN",
+    "uploaded_by": "seed_script",
+    "is_synthetic": true
+  },
+  {
+    "zone": "GANDHIBAGH",
+    "month": "2026-03",
+    "mld_supplied": 5.3,
+    "nrw_pct": 33.5,
+    "tanker_count": 5,
+    "supply_hrs_real": "UNKNOWN",
+    "uploaded_by": "seed_script",
+    "is_synthetic": true
+  },
+  {
+    "zone": "GANDHIBAGH",
+    "month": "2026-04",
+    "mld_supplied": 4.96,
+    "nrw_pct": 33.3,
+    "tanker_count": 1,
+    "supply_hrs_real": "UNKNOWN",
+    "uploaded_by": "seed_script",
+    "is_synthetic": true
+  },
+  {
+    "zone": "GANDHIBAGH",
+    "month": "2026-05",
+    "mld_supplied": 5.07,
+    "nrw_pct": 34.3,
+    "tanker_count": 4,
+    "supply_hrs_real": "UNKNOWN",
+    "uploaded_by": "seed_script",
+    "is_synthetic": true
+  },
+  {
+    "zone": "GANDHIBAGH",
+    "month": "2026-06",
+    "mld_supplied": 5.11,
+    "nrw_pct": 33.5,
+    "tanker_count": 0,
+    "supply_hrs_real": "UNKNOWN",
+    "uploaded_by": "seed_script",
+    "is_synthetic": true
+  },
+  {
+    "zone": "HANUMAN NAGAR",
+    "month": "2025-09",
+    "mld_supplied": 5.06,
+    "nrw_pct": 44.1,
+    "tanker_count": 12,
+    "supply_hrs_real": "UNKNOWN",
+    "uploaded_by": "seed_script",
+    "is_synthetic": true
+  },
+  {
+    "zone": "HANUMAN NAGAR",
+    "month": "2025-10",
+    "mld_supplied": 5.33,
+    "nrw_pct": 42.5,
+    "tanker_count": 10,
+    "supply_hrs_real": "UNKNOWN",
+    "uploaded_by": "seed_script",
+    "is_synthetic": true
+  },
+  {
+    "zone": "HANUMAN NAGAR",
+    "month": "2025-11",
+    "mld_supplied": 5.17,
+    "nrw_pct": 41.9,
+    "tanker_count": 9,
+    "supply_hrs_real": "UNKNOWN",
+    "uploaded_by": "seed_script",
+    "is_synthetic": true
+  },
+  {
+    "zone": "HANUMAN NAGAR",
+    "month": "2025-12",
+    "mld_supplied": 5.19,
+    "nrw_pct": 40.2,
+    "tanker_count": 8,
+    "supply_hrs_real": "UNKNOWN",
+    "uploaded_by": "seed_script",
+    "is_synthetic": true
+  },
+  {
+    "zone": "HANUMAN NAGAR",
+    "month": "2026-01",
+    "mld_supplied": 5.23,
+    "nrw_pct": 38.4,
+    "tanker_count": 9,
+    "supply_hrs_real": "UNKNOWN",
+    "uploaded_by": "seed_script",
+    "is_synthetic": true
+  },
+  {
+    "zone": "HANUMAN NAGAR",
+    "month": "2026-02",
+    "mld_supplied": 5.02,
+    "nrw_pct": 37.9,
+    "tanker_count": 8,
+    "supply_hrs_real": "UNKNOWN",
+    "uploaded_by": "seed_script",
+    "is_synthetic": true
+  },
+  {
+    "zone": "HANUMAN NAGAR",
+    "month": "2026-03",
+    "mld_supplied": 5.3,
+    "nrw_pct": 36.5,
+    "tanker_count": 5,
+    "supply_hrs_real": "UNKNOWN",
+    "uploaded_by": "seed_script",
+    "is_synthetic": true
+  },
+  {
+    "zone": "HANUMAN NAGAR",
+    "month": "2026-04",
+    "mld_supplied": 4.96,
+    "nrw_pct": 35.6,
+    "tanker_count": 5,
+    "supply_hrs_real": "UNKNOWN",
+    "uploaded_by": "seed_script",
+    "is_synthetic": true
+  },
+  {
+    "zone": "HANUMAN NAGAR",
+    "month": "2026-05",
+    "mld_supplied": 5.07,
+    "nrw_pct": 35.0,
+    "tanker_count": 4,
+    "supply_hrs_real": "UNKNOWN",
+    "uploaded_by": "seed_script",
+    "is_synthetic": true
+  },
+  {
+    "zone": "HANUMAN NAGAR",
+    "month": "2026-06",
+    "mld_supplied": 5.11,
+    "nrw_pct": 33.9,
+    "tanker_count": 6,
+    "supply_hrs_real": "UNKNOWN",
+    "uploaded_by": "seed_script",
+    "is_synthetic": true
+  },
+  {
+    "zone": "LAKADGANJ",
+    "month": "2025-09",
+    "mld_supplied": 5.06,
+    "nrw_pct": 45.2,
+    "tanker_count": 11,
+    "supply_hrs_real": "UNKNOWN",
+    "uploaded_by": "seed_script",
+    "is_synthetic": true
+  },
+  {
+    "zone": "LAKADGANJ",
+    "month": "2025-10",
+    "mld_supplied": 5.33,
+    "nrw_pct": 46.7,
+    "tanker_count": 11,
+    "supply_hrs_real": "UNKNOWN",
+    "uploaded_by": "seed_script",
+    "is_synthetic": true
+  },
+  {
+    "zone": "LAKADGANJ",
+    "month": "2025-11",
+    "mld_supplied": 5.17,
+    "nrw_pct": 48.8,
+    "tanker_count": 17,
+    "supply_hrs_real": "UNKNOWN",
+    "uploaded_by": "seed_script",
+    "is_synthetic": true
+  },
+  {
+    "zone": "LAKADGANJ",
+    "month": "2025-12",
+    "mld_supplied": 5.19,
+    "nrw_pct": 50.0,
+    "tanker_count": 17,
+    "supply_hrs_real": "UNKNOWN",
+    "uploaded_by": "seed_script",
+    "is_synthetic": true
+  },
+  {
+    "zone": "LAKADGANJ",
+    "month": "2026-01",
+    "mld_supplied": 5.23,
+    "nrw_pct": 51.7,
+    "tanker_count": 15,
+    "supply_hrs_real": "UNKNOWN",
+    "uploaded_by": "seed_script",
+    "is_synthetic": true
+  },
+  {
+    "zone": "LAKADGANJ",
+    "month": "2026-02",
+    "mld_supplied": 5.02,
+    "nrw_pct": 53.5,
+    "tanker_count": 19,
+    "supply_hrs_real": "UNKNOWN",
+    "uploaded_by": "seed_script",
+    "is_synthetic": true
+  },
+  {
+    "zone": "LAKADGANJ",
+    "month": "2026-03",
+    "mld_supplied": 5.3,
+    "nrw_pct": 55.4,
+    "tanker_count": 21,
+    "supply_hrs_real": "UNKNOWN",
+    "uploaded_by": "seed_script",
+    "is_synthetic": true
+  },
+  {
+    "zone": "LAKADGANJ",
+    "month": "2026-04",
+    "mld_supplied": 4.96,
+    "nrw_pct": 56.2,
+    "tanker_count": 20,
+    "supply_hrs_real": "UNKNOWN",
+    "uploaded_by": "seed_script",
+    "is_synthetic": true
+  },
+  {
+    "zone": "LAKADGANJ",
+    "month": "2026-05",
+    "mld_supplied": 5.07,
+    "nrw_pct": 57.1,
+    "tanker_count": 24,
+    "supply_hrs_real": "UNKNOWN",
+    "uploaded_by": "seed_script",
+    "is_synthetic": true
+  },
+  {
+    "zone": "LAKADGANJ",
+    "month": "2026-06",
+    "mld_supplied": 5.11,
+    "nrw_pct": 59.1,
+    "tanker_count": 25,
+    "supply_hrs_real": "UNKNOWN",
+    "uploaded_by": "seed_script",
+    "is_synthetic": true
+  },
+  {
+    "zone": "LaxmiNagar",
+    "month": "2025-09",
+    "mld_supplied": 101.17,
+    "nrw_pct": 48.0,
+    "tanker_count": 12,
+    "supply_hrs_real": "02-04",
+    "uploaded_by": "seed_script",
+    "is_synthetic": true
+  },
+  {
+    "zone": "LaxmiNagar",
+    "month": "2025-10",
+    "mld_supplied": 106.5,
+    "nrw_pct": 48.8,
+    "tanker_count": 18,
+    "supply_hrs_real": "02-04",
+    "uploaded_by": "seed_script",
+    "is_synthetic": true
+  },
+  {
+    "zone": "LaxmiNagar",
+    "month": "2025-11",
+    "mld_supplied": 103.32,
+    "nrw_pct": 47.9,
+    "tanker_count": 14,
+    "supply_hrs_real": "02-04",
+    "uploaded_by": "seed_script",
+    "is_synthetic": true
+  },
+  {
+    "zone": "LaxmiNagar",
+    "month": "2025-12",
+    "mld_supplied": 103.82,
+    "nrw_pct": 47.1,
+    "tanker_count": 15,
+    "supply_hrs_real": "02-04",
+    "uploaded_by": "seed_script",
+    "is_synthetic": true
+  },
+  {
+    "zone": "LaxmiNagar",
+    "month": "2026-01",
+    "mld_supplied": 104.58,
+    "nrw_pct": 47.6,
+    "tanker_count": 12,
+    "supply_hrs_real": "02-04",
+    "uploaded_by": "seed_script",
+    "is_synthetic": true
+  },
+  {
+    "zone": "LaxmiNagar",
+    "month": "2026-02",
+    "mld_supplied": 100.34,
+    "nrw_pct": 47.6,
+    "tanker_count": 14,
+    "supply_hrs_real": "02-04",
+    "uploaded_by": "seed_script",
+    "is_synthetic": true
+  },
+  {
+    "zone": "LaxmiNagar",
+    "month": "2026-03",
+    "mld_supplied": 106.02,
+    "nrw_pct": 47.1,
+    "tanker_count": 16,
+    "supply_hrs_real": "02-04",
+    "uploaded_by": "seed_script",
+    "is_synthetic": true
+  },
+  {
+    "zone": "LaxmiNagar",
+    "month": "2026-04",
+    "mld_supplied": 99.29,
+    "nrw_pct": 46.9,
+    "tanker_count": 12,
+    "supply_hrs_real": "02-04",
+    "uploaded_by": "seed_script",
+    "is_synthetic": true
+  },
+  {
+    "zone": "LaxmiNagar",
+    "month": "2026-05",
+    "mld_supplied": 101.34,
+    "nrw_pct": 47.0,
+    "tanker_count": 15,
+    "supply_hrs_real": "02-04",
+    "uploaded_by": "seed_script",
+    "is_synthetic": true
+  },
+  {
+    "zone": "LaxmiNagar",
+    "month": "2026-06",
+    "mld_supplied": 102.15,
+    "nrw_pct": 46.4,
+    "tanker_count": 12,
+    "supply_hrs_real": "02-04",
+    "uploaded_by": "seed_script",
+    "is_synthetic": true
+  },
+  {
+    "zone": "MANGALWARI",
+    "month": "2025-09",
+    "mld_supplied": 5.06,
+    "nrw_pct": 27.3,
+    "tanker_count": 0,
+    "supply_hrs_real": "UNKNOWN",
+    "uploaded_by": "seed_script",
+    "is_synthetic": true
+  },
+  {
+    "zone": "MANGALWARI",
+    "month": "2025-10",
+    "mld_supplied": 5.33,
+    "nrw_pct": 26.2,
+    "tanker_count": 0,
+    "supply_hrs_real": "UNKNOWN",
+    "uploaded_by": "seed_script",
+    "is_synthetic": true
+  },
+  {
+    "zone": "MANGALWARI",
+    "month": "2025-11",
+    "mld_supplied": 5.17,
+    "nrw_pct": 25.6,
+    "tanker_count": 0,
+    "supply_hrs_real": "UNKNOWN",
+    "uploaded_by": "seed_script",
+    "is_synthetic": true
+  },
+  {
+    "zone": "MANGALWARI",
+    "month": "2025-12",
+    "mld_supplied": 5.19,
+    "nrw_pct": 24.6,
+    "tanker_count": 0,
+    "supply_hrs_real": "UNKNOWN",
+    "uploaded_by": "seed_script",
+    "is_synthetic": true
+  },
+  {
+    "zone": "MANGALWARI",
+    "month": "2026-01",
+    "mld_supplied": 5.23,
+    "nrw_pct": 23.8,
+    "tanker_count": 0,
+    "supply_hrs_real": "UNKNOWN",
+    "uploaded_by": "seed_script",
+    "is_synthetic": true
+  },
+  {
+    "zone": "MANGALWARI",
+    "month": "2026-02",
+    "mld_supplied": 5.02,
+    "nrw_pct": 23.2,
+    "tanker_count": 0,
+    "supply_hrs_real": "UNKNOWN",
+    "uploaded_by": "seed_script",
+    "is_synthetic": true
+  },
+  {
+    "zone": "MANGALWARI",
+    "month": "2026-03",
+    "mld_supplied": 5.3,
+    "nrw_pct": 22.5,
+    "tanker_count": 0,
+    "supply_hrs_real": "UNKNOWN",
+    "uploaded_by": "seed_script",
+    "is_synthetic": true
+  },
+  {
+    "zone": "MANGALWARI",
+    "month": "2026-04",
+    "mld_supplied": 4.96,
+    "nrw_pct": 20.8,
+    "tanker_count": 0,
+    "supply_hrs_real": "UNKNOWN",
+    "uploaded_by": "seed_script",
+    "is_synthetic": true
+  },
+  {
+    "zone": "MANGALWARI",
+    "month": "2026-05",
+    "mld_supplied": 5.07,
+    "nrw_pct": 20.0,
+    "tanker_count": 0,
+    "supply_hrs_real": "UNKNOWN",
+    "uploaded_by": "seed_script",
+    "is_synthetic": true
+  },
+  {
+    "zone": "MANGALWARI",
+    "month": "2026-06",
+    "mld_supplied": 5.11,
+    "nrw_pct": 19.2,
+    "tanker_count": 0,
+    "supply_hrs_real": "UNKNOWN",
+    "uploaded_by": "seed_script",
+    "is_synthetic": true
+  },
+  {
+    "zone": "NEHRU NAGAR",
+    "month": "2025-09",
+    "mld_supplied": 70.82,
+    "nrw_pct": 39.2,
+    "tanker_count": 8,
+    "supply_hrs_real": "02-04",
+    "uploaded_by": "seed_script",
+    "is_synthetic": true
+  },
+  {
+    "zone": "NEHRU NAGAR",
+    "month": "2025-10",
+    "mld_supplied": 74.55,
+    "nrw_pct": 40.7,
+    "tanker_count": 10,
+    "supply_hrs_real": "02-04",
+    "uploaded_by": "seed_script",
+    "is_synthetic": true
+  },
+  {
+    "zone": "NEHRU NAGAR",
+    "month": "2025-11",
+    "mld_supplied": 72.32,
+    "nrw_pct": 42.6,
+    "tanker_count": 8,
+    "supply_hrs_real": "02-04",
+    "uploaded_by": "seed_script",
+    "is_synthetic": true
+  },
+  {
+    "zone": "NEHRU NAGAR",
+    "month": "2025-12",
+    "mld_supplied": 72.68,
+    "nrw_pct": 43.5,
+    "tanker_count": 10,
+    "supply_hrs_real": "02-04",
+    "uploaded_by": "seed_script",
+    "is_synthetic": true
+  },
+  {
+    "zone": "NEHRU NAGAR",
+    "month": "2026-01",
+    "mld_supplied": 73.21,
+    "nrw_pct": 44.9,
+    "tanker_count": 12,
+    "supply_hrs_real": "02-04",
+    "uploaded_by": "seed_script",
+    "is_synthetic": true
+  },
+  {
+    "zone": "NEHRU NAGAR",
+    "month": "2026-02",
+    "mld_supplied": 70.24,
+    "nrw_pct": 46.8,
+    "tanker_count": 14,
+    "supply_hrs_real": "02-04",
+    "uploaded_by": "seed_script",
+    "is_synthetic": true
+  },
+  {
+    "zone": "NEHRU NAGAR",
+    "month": "2026-03",
+    "mld_supplied": 74.22,
+    "nrw_pct": 48.9,
+    "tanker_count": 13,
+    "supply_hrs_real": "02-04",
+    "uploaded_by": "seed_script",
+    "is_synthetic": true
+  },
+  {
+    "zone": "NEHRU NAGAR",
+    "month": "2026-04",
+    "mld_supplied": 69.5,
+    "nrw_pct": 50.3,
+    "tanker_count": 15,
+    "supply_hrs_real": "02-04",
+    "uploaded_by": "seed_script",
+    "is_synthetic": true
+  },
+  {
+    "zone": "NEHRU NAGAR",
+    "month": "2026-05",
+    "mld_supplied": 70.94,
+    "nrw_pct": 52.3,
+    "tanker_count": 16,
+    "supply_hrs_real": "02-04",
+    "uploaded_by": "seed_script",
+    "is_synthetic": true
+  },
+  {
+    "zone": "NEHRU NAGAR",
+    "month": "2026-06",
+    "mld_supplied": 71.51,
+    "nrw_pct": 53.4,
+    "tanker_count": 18,
+    "supply_hrs_real": "02-04",
+    "uploaded_by": "seed_script",
+    "is_synthetic": true
+  },
+  {
+    "zone": "SATRANJIPURA",
+    "month": "2025-09",
+    "mld_supplied": 5.06,
+    "nrw_pct": 27.5,
+    "tanker_count": 0,
+    "supply_hrs_real": "UNKNOWN",
+    "uploaded_by": "seed_script",
+    "is_synthetic": true
+  },
+  {
+    "zone": "SATRANJIPURA",
+    "month": "2025-10",
+    "mld_supplied": 5.33,
+    "nrw_pct": 27.0,
+    "tanker_count": 0,
+    "supply_hrs_real": "UNKNOWN",
+    "uploaded_by": "seed_script",
+    "is_synthetic": true
+  },
+  {
+    "zone": "SATRANJIPURA",
+    "month": "2025-11",
+    "mld_supplied": 5.17,
+    "nrw_pct": 26.9,
+    "tanker_count": 0,
+    "supply_hrs_real": "UNKNOWN",
+    "uploaded_by": "seed_script",
+    "is_synthetic": true
+  },
+  {
+    "zone": "SATRANJIPURA",
+    "month": "2025-12",
+    "mld_supplied": 5.19,
+    "nrw_pct": 27.0,
+    "tanker_count": 0,
+    "supply_hrs_real": "UNKNOWN",
+    "uploaded_by": "seed_script",
+    "is_synthetic": true
+  },
+  {
+    "zone": "SATRANJIPURA",
+    "month": "2026-01",
+    "mld_supplied": 5.23,
+    "nrw_pct": 28.0,
+    "tanker_count": 0,
+    "supply_hrs_real": "UNKNOWN",
+    "uploaded_by": "seed_script",
+    "is_synthetic": true
+  },
+  {
+    "zone": "SATRANJIPURA",
+    "month": "2026-02",
+    "mld_supplied": 5.02,
+    "nrw_pct": 29.0,
+    "tanker_count": 2,
+    "supply_hrs_real": "UNKNOWN",
+    "uploaded_by": "seed_script",
+    "is_synthetic": true
+  },
+  {
+    "zone": "SATRANJIPURA",
+    "month": "2026-03",
+    "mld_supplied": 5.3,
+    "nrw_pct": 29.7,
+    "tanker_count": 0,
+    "supply_hrs_real": "UNKNOWN",
+    "uploaded_by": "seed_script",
+    "is_synthetic": true
+  },
+  {
+    "zone": "SATRANJIPURA",
+    "month": "2026-04",
+    "mld_supplied": 4.96,
+    "nrw_pct": 29.6,
+    "tanker_count": 0,
+    "supply_hrs_real": "UNKNOWN",
+    "uploaded_by": "seed_script",
+    "is_synthetic": true
+  },
+  {
+    "zone": "SATRANJIPURA",
+    "month": "2026-05",
+    "mld_supplied": 5.07,
+    "nrw_pct": 29.4,
+    "tanker_count": 0,
+    "supply_hrs_real": "UNKNOWN",
+    "uploaded_by": "seed_script",
+    "is_synthetic": true
+  },
+  {
+    "zone": "SATRANJIPURA",
+    "month": "2026-06",
+    "mld_supplied": 5.11,
+    "nrw_pct": 29.2,
+    "tanker_count": 2,
+    "supply_hrs_real": "UNKNOWN",
+    "uploaded_by": "seed_script",
+    "is_synthetic": true
+  }
+]
