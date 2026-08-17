@@ -1,0 +1,13 @@
+id,river,description,lat,lon,confidence
+O1,Nag,Dande Hospital / Ravi Nagar Chowk,21.1200,79.0680,medium
+O2,Nag,Bore Nalla behind Naivadyam sangamchal,21.1460,79.0730,medium
+O3,Nag,Untkhana Bridge,21.1345,79.0983,high
+O4,Nag,Jagnade Chowk (Nandanvan),21.1371,79.1195,high
+O5,Nag,Super Store Jagnade Chowk,21.1375,79.1190,medium
+O6,Nag,St Xavier School Vyankatesh Nagar,21.1399,79.1190,high
+O7,Nag,Hasanbagh nr Vyankatesh Nagar,21.1392,79.1250,medium
+O8,Nag,Hudkeshwar Nalla nr bridge lawns,21.1450,79.1050,medium
+O9,Nag,Gandhi Nagar behind LAD College,21.1329,79.0547,high
+O10,Pili,Chambhar Nalla Sharda Ispat Kalamna bridge Indora,21.1550,79.0550,medium
+O11,Pili,Nagpur Koradi railway crossing,21.1800,79.0500,medium
+O12,Pili,Zingabai Takli nr St Vincent Pallotti School,21.1550,79.0450,medium

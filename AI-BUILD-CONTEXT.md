@@ -140,17 +140,22 @@ is10500_coliform_pass
 ```
 code, commissioned, status, capacity_mld, utilisation_mld, technology
 ```
-Total installed capacity 423.5 MLD.
+Installed capacity per NEERI is 423.5 MLD, but this **includes plants not yet operational**. Use ~345 MLD operational — see `RECONCILIATION.md`.
 
 ### 3.3 `standards/` — the reference tables everything computes against
 
 - `is10500.csv` → `parameter, unit, acceptable_limit, permissible_limit_no_alt_source, relaxation_allowed, notes`
 - `cpcb_designated_best_use.csv` → `class, designated_best_use, ph_min, ph_max, do_min_mgl, bod_max_mgl, total_coliform_max_mpn_100ml, ec_max_uscm, sar_max, boron_max_mgl, free_ammonia_max_mgl`
-- `fao29_crop_salt_tolerance.csv` → `crop, category, ece_threshold_dsm, slope_pct_per_dsm, ecw_threshold_dsm, nagpur_relevance, in_fao29_table4` (32 crops)
+- `fao29_crop_salt_tolerance.csv` → `crop, category, nagpur_relevance, ecw_0pct_dsm, ecw_10pct_dsm, ecw_25pct_dsm, ecw_50pct_dsm, ece_threshold_dsm, slope_pct_per_dsm, ecw_threshold_derived, method` (35 crops).
+  **Prefer the `ecw_*` band columns where present** — they are direct FAO values in ECw and need no conversion. Fall back to threshold+slope only where the bands are blank, and state the `ECe = 1.5 x ECw` assumption in that case. The `method` column says which applies.
 
 ### 3.4 `nagpur_data/*.csv` — 15 raw NEERI tables
 
 Lakes (locations, physico-chemical, nutrients, bacteriological), rivers, city groundwater incl. **heavy metals**, groundwater levels, STPs, month-wise non-revenue water.
+
+### 3.4b Also in the repo under `web_evidence/` — use these
+
+`NMC_2022_23_*` (previous year, **see the trend caution in `RECONCILIATION.md` — do not claim year-on-year change yet**) · `Flood_evidence_summary.csv` (NMC Monsoon Preparedness Plan: **66 official low-lying flood areas**) · `OCW_intervention_events.csv` (real before/after supply-hour outcomes — use for Q3) · `MPCB_STP_status_summary.csv` (current STP status).
 
 ### 3.5 Being collected by the team (may or may not arrive)
 
@@ -272,7 +277,7 @@ That sequence *is* the argument: the problem is resolution, and the fix is more 
 - **All 12 city groundwater sources NEERI sampled show coliform contamination** — IS 10500 requires zero
 - **21 of 23 river sites fail CPCB Class D** (DO ≥ 4 mg/L, the minimum for fish)
 - Dissolved oxygen down the Nag: 3.67 → 3.63 → 3.88 → 3.81 → **1.90 → 1.20 → 1.02 → 1.10 → 1.20 → 0.48**. The collapse begins at Nag-5, which NEERI describes as "drain mix behind Yashwant Stadium"
-- Nagpur has **13 operational STPs, 423.5 MLD** installed capacity (up from ~100 MLD in 2011)
+- **Sewage: ~520 MLD generated, ~345 MLD treatment operational, ~175 MLD still untreated, ~58 MLD under construction** (MPCB Oct 2025). For context, capacity was ~100 MLD in 2011 — the city genuinely tripled it. **Do not say 423.5 MLD**; that figure counts plants not yet running. See `RECONCILIATION.md`.
 - Of 347 sampled sites, **56 would cost an orange grower more than 10% yield; zero would harm cotton**
 
 **Do not invent statistics.** If a number isn't in this file or computed from the datasets, don't put it on screen.
