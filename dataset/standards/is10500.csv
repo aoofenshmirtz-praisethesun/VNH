@@ -1,0 +1,22 @@
+parameter,unit,acceptable_limit,permissible_limit_no_alt_source,relaxation_allowed,notes
+pH,-,6.5,8.5,no,"Range 6.5-8.5; no relaxation"
+Turbidity,NTU,1,5,yes,
+Total Dissolved Solids,mg/L,500,2000,yes,
+Total Hardness (as CaCO3),mg/L,200,600,yes,
+Calcium (as Ca),mg/L,75,200,yes,
+Magnesium (as Mg),mg/L,30,100,yes,
+Total Alkalinity (as CaCO3),mg/L,200,600,yes,
+Chloride (as Cl),mg/L,250,1000,yes,
+Sulphate (as SO4),mg/L,200,400,yes,
+Nitrate (as NO3),mg/L,45,45,no,"No relaxation - 45 is absolute"
+Fluoride (as F),mg/L,1.0,1.5,yes,
+Iron (as Fe),mg/L,0.3,0.3,no,"IS 10500:2012 as published; a later amendment raised this - verify edition before citing"
+Manganese (as Mn),mg/L,0.1,0.3,yes,
+Copper (as Cu),mg/L,0.05,1.5,yes,
+Zinc (as Zn),mg/L,5,15,yes,
+Arsenic (as As),mg/L,0.01,0.05,yes,
+Lead (as Pb),mg/L,0.01,0.01,no,"No relaxation"
+Cadmium (as Cd),mg/L,0.003,0.003,no,"No relaxation"
+Total Chromium (as Cr),mg/L,0.05,0.05,no,"No relaxation"
+Total Coliform,CFU or MPN /100 mL,0,0,no,"Shall not be detectable in any 100 mL sample"
+E. coli / Thermotolerant coliform,CFU or MPN /100 mL,0,0,no,"Shall not be detectable in any 100 mL sample"
