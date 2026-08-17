@@ -1,0 +1,32 @@
+date,locality,description,source_url,severity,lat,lon
+2023-06-28,Manish Nagar,Newly constructed RuB floods every monsoon,https://timesofindia.indiatimes.com/city/nagpur/fire-dept-identifies-66-low-lying-areas-prone-to-flooding-in-city/articleshow/101323685.cms,flood,21.1050,79.0750
+2023-06-28,Padole Square,Low-lying area identified by fire dept,https://timesofindia.indiatimes.com/city/nagpur/fire-dept-identifies-66-low-lying-areas-prone-to-flooding-in-city/articleshow/101323685.cms,flood,21.0950,79.0650
+2023-06-28,Shankar Nagar Square,Low-lying area identified by fire dept,https://timesofindia.indiatimes.com/city/nagpur/fire-dept-identifies-66-low-lying-areas-prone-to-flooding-in-city/articleshow/101323685.cms,flood,21.1200,79.0550
+2021-06-24,Narendra Nagar RuB,Perennial flooding at railway underbridge,https://timesofindia.indiatimes.com/city/nagpur/waterlogging-prone-areas-up-from-16-to-101/articleshow/83792640.cms,flood,21.1250,79.0850
+2021-06-24,Ramdaspeth,New flooding spot along cement road,https://timesofindia.indiatimes.com/city/nagpur/waterlogging-prone-areas-up-from-16-to-101/articleshow/83792640.cms,flood,21.1300,79.0700
+2021-06-24,Dharampeth,Waterlogging along newly constructed roads,https://timesofindia.indiatimes.com/city/nagpur/waterlogging-prone-areas-up-from-16-to-101/articleshow/83792640.cms,flood,21.1350,79.0650
+2021-06-24,Borgaon,Flooding in new areas,https://timesofindia.indiatimes.com/city/nagpur/waterlogging-prone-areas-up-from-16-to-101/articleshow/83792640.cms,flood,21.1100,79.0600
+2021-06-24,Padole Nagar,Waterlogging along cement roads,https://timesofindia.indiatimes.com/city/nagpur/waterlogging-prone-areas-up-from-16-to-101/articleshow/83792640.cms,flood,21.0980,79.0680
+2021-06-24,Hiwri Nagar,New flooding spot,https://timesofindia.indiatimes.com/city/nagpur/waterlogging-prone-areas-up-from-16-to-101/articleshow/83792640.cms,flood,21.1400,79.0900
+2025-07-09,Narendra Nagar,Severe waterlogging during heavy rain,https://www.deccanherald.com/india/maharashtra/nagpur-reeling-under-heavy-rains-imd-issues-red-alert-3622722,flood,21.1250,79.0850
+2025-07-09,Trimurti Nagar,Waterlogging during red alert rainfall,https://www.deccanherald.com/india/maharashtra/nagpur-reeling-under-heavy-rains-imd-issues-red-alert-3622722,flood,21.1100,79.0700
+2025-07-09,New Narsala,Severe flooding submerges homes and vehicles,https://www.deccanherald.com/india/maharashtra/nagpur-reeling-under-heavy-rains-imd-issues-red-alert-3622722,flood,21.1150,79.0550
+2025-07-09,Cotton Market,Waterlogging in market area,https://www.deccanherald.com/india/maharashtra/nagpur-reeling-under-heavy-rains-imd-issues-red-alert-3622722,flood,21.1400,79.0800
+2025-07-09,Dharampeth,Waterlogging during heavy rain,https://www.deccanherald.com/india/maharashtra/nagpur-reeling-under-heavy-rains-imd-issues-red-alert-3622722,flood,21.1350,79.0650
+2025-07-09,Wardha Road,Waterlogging along main road,https://www.deccanherald.com/india/maharashtra/nagpur-reeling-under-heavy-rains-imd-issues-red-alert-3622722,flood,21.1200,79.0500
+2024-09-15,Birdi,Streets submerged in one hour of downpour,https://www.facebook.com/thepunemirror/videos/1109912444091493/,flood,21.1350,79.0850
+2024-09-15,Dhantoli,Streets submerged in one hour of downpour,https://www.facebook.com/thepunemirror/videos/1109912444091493/,flood,21.1250,79.0750
+2024-09-15,Manish Nagar,Underpass and low-lying areas flooded,https://www.facebook.com/thepunemirror/videos/1109912444091493/,flood,21.1050,79.0750
+2026-07-01,Bajeria,NMC identified flood-prone area,https://www.instagram.com/reel/DZxUwKQMamk/,flood,21.1450,79.0850
+2026-07-01,Mominpura,NMC identified flood-prone area,https://www.instagram.com/reel/DZxUwKQMamk/,flood,21.1400,79.0800
+2026-07-01,Bharat Mata Chowk,NMC identified flood-prone area,https://www.instagram.com/reel/DZxUwKQMamk/,flood,21.1380,79.0780
+2026-07-01,Binaki,NMC identified flood-prone area,https://www.instagram.com/reel/DZxUwKQMamk/,flood,21.1320,79.0820
+2026-07-01,Samta Nagar,NMC identified flood-prone area,https://www.instagram.com/reel/DZxUwKQMamk/,flood,21.1280,79.0760
+2026-07-01,Pili River belt,NMC identified flood-prone area along Pili river,https://www.instagram.com/reel/DZxUwKQMamk/,flood,21.1500,79.0600
+2026-07-01,Kachipura,NMC identified flood-prone area,https://www.instagram.com/reel/DZxUwKQMamk/,flood,21.1420,79.0720
+2026-07-01,Zingabai Takli,NMC identified flood-prone area,https://www.instagram.com/reel/DZxUwKQMamk/,flood,21.1550,79.0450
+2026-07-01,Pandhrabodi,NMC identified flood-prone area,https://www.instagram.com/reel/DZxUwKQMamk/,flood,21.1500,79.0550
+2026-07-01,Hazaripahad,NMC identified flood-prone area,https://www.instagram.com/reel/DZxUwKQMamk/,flood,21.1480,79.0580
+2021-06-24,Tukdoji Putla to Manewada road,Both sides of cement road submerged,https://timesofindia.indiatimes.com/city/nagpur/waterlogging-prone-areas-up-from-16-to-101/articleshow/83792640.cms,flood,21.1350,79.0900
+2021-06-24,Mate Square to Pratap Nagar road,Both sides of cement road submerged,https://timesofindia.indiatimes.com/city/nagpur/waterlogging-prone-areas-up-from-16-to-101/articleshow/83792640.cms,flood,21.1300,79.0950
+2023-06-28,Golibar Chowk,House slab cave-in during heavy rain killed one,https://timesofindia.indiatimes.com/city/nagpur/fire-dept-identifies-66-low-lying-areas-prone-to-flooding-in-city/articleshow/101323685.cms,flood,21.1400,79.0880
