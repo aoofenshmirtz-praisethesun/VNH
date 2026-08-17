@@ -1,8 +1,8 @@
 # Tasks — Viksit Nagpur Hackathon
-### Updated 15 Aug, end of day. Pick one, put your name on it, tick when the "Done when" line is true.
+### Updated 17 Aug, during hackathon. All automatable data tasks complete.
 
 Hackathon: **17–18 Aug, VNIT.** Coding 10:00 on the 17th → 10:00 on the 18th. Pitch 3 min + 3 min Q&A.
-**Everything below is prep for the 16th.** None of it is the hackathon build — it's the material the build runs on.
+**Data prep is done.** Remaining work: frontend app build + 2 manual tasks + 1 email.
 
 ---
 
@@ -20,6 +20,7 @@ Hackathon: **17–18 Aug, VNIT.** Coding 10:00 on the 17th → 10:00 on the 18th
 | **12 sewage outfalls** ✅ | Geocoded with coordinates and confidence levels. `dataset/outfalls.csv`. |
 | **31 flood locations** ✅ | From NMC official data + news reports. `dataset/flood_reports.csv`. |
 | **DEM terrain check** ✅ | Nagpur too flat for flow modelling (std 12.9m, slope 0.76°). Task 5 cancelled. `dataset/DEM_ANALYSIS.md`. |
+| **NMC ward boundaries** ✅ | 42 ward polygons from BharatViz/DataMeet. `dataset/nagpur_wards.geojson`. |
 
 All in `nagpur_dataset_v1.zip` + new files in `dataset/`.
 
