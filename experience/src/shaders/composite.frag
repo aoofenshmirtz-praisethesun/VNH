@@ -8,7 +8,7 @@ uniform sampler2D uNoiseTex;
 uniform sampler2D tHighlight;
 uniform vec2  uResolution;
 uniform float uTime;
-uniform float uInkStrength;   // 1.0 default; GSAP animates this with the camera in Step 7
+uniform float uInkStrength;   // 0.85 default (3b.2: was 1.0 — caused saturation)
 uniform float uWobble;        // 1.0 default
 uniform float uFillMix;       // 0.35 default; 0.0 = pure monochrome reference look
 
@@ -37,8 +37,11 @@ float vnoise(vec2 p){
   return mix(mix(hash21(i), hash21(i+vec2(1,0)), u.x),
              mix(hash21(i+vec2(0,1)), hash21(i+vec2(1,1)), u.x), u.y);
 }
-float paperTone(vec2 uv){
-  float f = vnoise(uv*380.0)*0.5 + vnoise(uv*820.0)*0.3 + vnoise(uv*40.0)*0.2;
+
+// 3b.3: Paper grain anchored in PIXELS, not UV. Resolution-independent, cannot alias.
+float paperTone(vec2 fragPx){
+  vec2 p = fragPx / 3.2;                        // ~3 device px per noise cell, at any resolution
+  float f = vnoise(p)*0.5 + vnoise(p*2.6)*0.3 + vnoise(p*0.09)*0.2;
   return 0.93 + f*0.07;
 }
 
@@ -53,12 +56,13 @@ void main() {
 
   float sD = sobelMag(tDiffuse, uvN, texel);
   float sN = sobelMag(uNormals, uvN, texel);
-  float edge = (sD * 0.6 + sN * 0.3) * uInkStrength;
-  edge = smoothstep(0.05, 0.50, edge);
 
-  // ---- paper, corrected for aspect so the grain is not stretched
-  vec2 auv = vUv * vec2(uResolution.x / uResolution.y, 1.0);
-  float paper = paperTone(auv);
+  // 3b.2: 0.25 normalises the 8-tap Sobel sum. Without it, every edge saturates to 100% black.
+  float edge = (sD * 0.6 + sN * 0.3) * 0.25 * uInkStrength;
+  edge = smoothstep(0.05, 0.70, edge);
+
+  // 3b.3: paper grain in pixel space (was UV space — caused aliasing/banding)
+  float paper = paperTone(gl_FragCoord.xy);
 
   // ---- compose
   vec3 scene = texture2D(tDiffuse, vUv).rgb;

@@ -23,6 +23,16 @@ export const ACTION = {
     doThis: 'Boiling does not remove fluoride. Removal needs activated alumina or reverse osmosis.',
     boil: false
   },
+  'Lead (as Pb)': {
+    means: 'Lead accumulates; the risk is to children and to pregnancy.',
+    doThis: 'Boiling does NOT remove lead — it concentrates it. Removal needs reverse osmosis or a certified lead filter.',
+    boil: false
+  },
+  'Arsenic (as As)': {
+    means: 'Long-term exposure is carcinogenic.',
+    doThis: 'Boiling does not remove arsenic.',
+    boil: false
+  },
   'Total Coliform': {
     means: 'Indicates faecal contamination of the water.',
     doThis: 'Boiling is effective against bacteria. Bring to a rolling boil before drinking.',
@@ -44,11 +54,29 @@ export const ACTION = {
 };
 
 let LIMITS = null;
+let METALS = null;
+let CPCB_B = null;
+
 export function loadStandards(std) {
   LIMITS = {};
   for (const r of std.is10500) {
     const lim = parseFloat(r.permissible_limit_no_alt_source);
     LIMITS[r.parameter] = { limit: isNaN(lim) ? null : lim, unit: r.unit };
+  }
+  
+  METALS = {};
+  if (std.is10500_metals) {
+    for (const m of std.is10500_metals) {
+      METALS[m.key] = { 
+        limit: parseFloat(m.permissible_limit_no_alt_source), 
+        label: m.parameter, 
+        unit: m.unit 
+      };
+    }
+  }
+
+  if (std.cpcb_dbu && std.cpcb_dbu.B_outdoor_bathing) {
+    CPCB_B = std.cpcb_dbu.B_outdoor_bathing;
   }
 }
 
@@ -68,6 +96,19 @@ export function drinkingVerdict(values) {
       exceed.push({ param, value: val, limit: L.limit, unit: L.unit });
     }
   }
+
+  // Check heavy metals if present
+  if (METALS) {
+    for (const [key, meta] of Object.entries(METALS)) {
+      const val = values[key];
+      if (val === undefined || val === null || isNaN(val)) continue;
+      tested.push(meta.label);
+      if (val > meta.limit) {
+        exceed.push({ param: meta.label, value: val, limit: meta.limit, unit: meta.unit });
+      }
+    }
+  }
+
   const bacti = ['total_coliform_cfu100ml', 'faecal_coliform_cfu100ml']
     .some(k => values[k] !== undefined && values[k] !== null);
 
@@ -83,6 +124,36 @@ export function drinkingVerdict(values) {
   return { state: 'NO_EXCEEDANCE', exceed: [], nTested: tested.length, bacti,
            statement: `No exceedance among the ${tested.length} parameters tested here.` +
                       (bacti ? '' : ' Not tested for bacteriological quality.') };
+}
+
+// CPCB Class B — outdoor bathing. DO >= 5.0, faecal coliform <= 2500, pH 6.5-8.5
+export function lakeVerdict(values) {
+  if (!CPCB_B) return { state: 'NOT_TESTED', checks: [], fails: [] };
+  
+  const checks = [], fails = [];
+  const add = (label, ok, txt) => {
+    if (ok === null) { checks.push(`${label}: not measured`); return; }
+    checks.push(`${label}: ${ok ? 'pass' : 'FAIL'}`);
+    if (!ok) fails.push(txt);
+  };
+
+  const ph = values.ph;
+  add('pH', ph == null ? null : (ph >= 6.5 && ph <= 8.5), `pH ${ph} (allowed 6.5–8.5)`);
+  
+  const do_val = values.do_mgl;
+  add('DO', do_val == null ? null : (do_val >= CPCB_B.do_min_mgl), `DO ${do_val} mg/L (min ${CPCB_B.do_min_mgl})`);
+  
+  const fc = values.faecal_coliform_cfu100ml;
+  add('Faecal Coliform', fc == null ? null : (fc <= CPCB_B.faecal_coliform_max_cfu100ml), 
+      `Faecal Coliform ${fc} CFU/100mL (max ${CPCB_B.faecal_coliform_max_cfu100ml})`);
+
+  if (ph == null && do_val == null && fc == null) return { state: 'INSUFFICIENT', checks, fails };
+  
+  return { 
+    state: fails.length ? 'EXCEEDS' : 'NO_EXCEEDANCE', 
+    statement: fails.length ? `Fails CPCB Class B (bathing) standard: ${fails.join('; ')}` : 'Meets CPCB Class B bathing standard.',
+    checks, fails 
+  };
 }
 
 // CPCB Class E — irrigation. pH 6.0–8.5, EC < 2250 uS/cm, SAR < 26.
