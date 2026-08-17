@@ -69,8 +69,9 @@ void main() {
   vec3 col   = mix(PARCHMENT, scene, uFillMix);   // lets lake/water fills survive faintly
   col = mix(col, INK, edge);
 
-  float hl = texture2D(tHighlight, vUv).r;
-  col = mix(col, EXCEED, hl * 0.4);
+  vec2 hl = texture2D(tHighlight, vUv).rg;
+  col = mix(col, EXCEED, hl.g * 0.45);    // exceedance — survives the ink
+  col = mix(col, EXCEED, hl.r * 0.70);    // hover — stronger, added in 5.6
 
   col *= paper;
   col *= 1.0 - smoothstep(0.25, 0.85, length(vUv - 0.5)) * 0.35;   // vignette

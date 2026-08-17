@@ -147,6 +147,30 @@
     .index li { cursor: pointer; }
     .index li:hover { color: var(--red); }
     .index .go { font-style: italic; }
+
+    /* ─── Panel contents (Step 5.6) ─── */
+    .p-id { font-size: 15px; font-weight: bold; }
+    .p-area { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--soft); margin-bottom: 8px; }
+    .p-rule { height: 1px; background: var(--rule); margin: 8px 0; }
+    .p-std { font-style: italic; margin-bottom: 8px; color: var(--soft); }
+    .p-verdict { font-weight: bold; color: var(--ink); margin-bottom: 8px; }
+    .p-action-title { font-size: 10px; letter-spacing: 0.15em; margin-top: 8px; color: var(--ink); }
+    .p-action { font-size: 13px; margin-top: 4px; color: var(--ink); }
+    .p-source { font-size: 10px; color: var(--soft); text-transform: uppercase; letter-spacing: 0.05em; }
+
+    /* ─── Lake labels (Step 5.7) ─── */
+    #lake-labels {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      pointer-events: none;
+    }
+    .lake-label {
+      position: absolute;
+      font-size: 12px;
+      font-style: italic;
+      color: var(--soft);
+      transition: opacity 0.3s;
+    }
   </style>
 </head>
 <body>
@@ -168,8 +192,10 @@
 
     <aside class="inset">
       <div class="inset-cap">NEAREST MEASUREMENT</div>
-      <div class="inset-body"><!-- populated by Step 5 --></div>
+      <div class="inset-body" id="panel-body"><!-- populated by Step 5 --></div>
     </aside>
+
+    <div id="lake-labels"></div>
 
     <nav class="index">
       <div class="index-scale">
