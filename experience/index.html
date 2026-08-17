@@ -37,6 +37,11 @@
       color: var(--ink);
     }
 
+    /* 7.9 Crop Tool Tabs */
+    .tabs { display: flex; border-bottom: 1px solid var(--rule); margin-bottom: 10px; }
+    .tab-btn { flex: 1; padding: 6px 0; background: none; border: none; font-family: inherit; font-size: 11px; letter-spacing: 0.1em; color: var(--soft); cursor: pointer; }
+    .tab-btn.active { color: var(--ink); font-weight: 600; border-bottom: 2px solid var(--ink); }
+
     /* ─── Ruled border ─── */
     .rule-h, .rule-v { position: absolute; background: var(--rule); }
     .rule-h { left: 0; right: 0; height: 1px; }

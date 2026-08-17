@@ -7,7 +7,7 @@ import { LineGeometry } from 'three/addons/lines/LineGeometry.js';
 import compositeVert from './shaders/composite.vert';
 import compositeFrag from './shaders/composite.frag';
 import gsap from 'gsap';
-import { drinkingVerdict, lakeVerdict, loadStandards, haversineKm } from './verdict.js';
+import { drinkingVerdict, lakeVerdict, loadStandards, haversineKm, cropLoss, irrigationVerdict } from './verdict.js';
 
 // ─── Palette (from spec, verbatim) ───
 const BG    = new THREE.Color('#fdfcf5');
@@ -117,6 +117,14 @@ const ANCHORS = {
 const UNITS_PER_KM = FIT / 54.7;
 const FRAME = 2 * Math.tan(45 * Math.PI / 360); // at fov 45
 
+let DRIFT = 1.0;
+let NAV_DURATION = 2.9;
+
+if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  DRIFT = 0;
+  NAV_DURATION = 0.4;
+}
+
 function gotoAnchor(key) {
   const a = ANCHORS[key];
   if (!a) return;
@@ -127,7 +135,7 @@ function gotoAnchor(key) {
   // Disable controls during transition, re-enable on complete
   controls.enabled = false;
 
-  gsap.to(desired.tgt, { x, y: 0, z, duration: 2.6, ease: 'power2.inOut' });
+  gsap.to(desired.tgt, { x, y: 0, z, duration: Math.max(0, NAV_DURATION - 0.3), ease: 'power2.inOut' });
   const startX = desired.pos.x;
   const startY = desired.pos.y;
   const startZ = desired.pos.z;
@@ -138,14 +146,14 @@ function gotoAnchor(key) {
   const dx = endX - startX;
   const dz = endZ - startZ;
   const dist = Math.sqrt(dx * dx + dz * dz) || 1; // avoid /0
-  const bow = dist * 0.3; // bow magnitude
+  const bow = dist * 0.3 * (DRIFT > 0 ? 1 : 0); // no bow if reduced motion
   const nx = -dz / dist;
   const nz = dx / dist;
 
   const proxy = { t: 0 };
   gsap.to(proxy, {
     t: 1,
-    duration: 2.9,
+    duration: NAV_DURATION,
     ease: 'power3.inOut',
     onUpdate: () => {
       const lx = startX + dx * proxy.t;
@@ -236,6 +244,7 @@ for (const [k, v] of Object.entries(PEN)) {
   lineMats[k] = m;
 }
 
+const waterwayMeshes = [];
 // ─── Load Waterways ───
 async function loadWaterways() {
   const res = await fetch('/data/waterways.json');
@@ -258,6 +267,7 @@ async function loadWaterways() {
     line.renderOrder = 2;
     // Line2 stays on layer 0 ONLY — must NOT enter the normal pass
     scene.add(line);
+    waterwayMeshes.push(line);
     count++;
   }
   console.log(`Loaded ${count} waterways`);
@@ -273,6 +283,7 @@ const shorelineMat = new LineMaterial({
 });
 shorelineMat.resolution.set(renderer.domElement.width, renderer.domElement.height);
 
+const lakeMeshes = [];
 async function loadWaterBodies() {
   const res = await fetch('/data/waterbodies.json');
   const bodies = await res.json();
@@ -310,6 +321,7 @@ async function loadWaterBodies() {
     mesh.renderOrder = 1;
     mesh.layers.enable(1);
     scene.add(mesh);
+    lakeMeshes.push(mesh);
 
     // 5.5: Shoreline outline
     const linePos = [];
@@ -323,6 +335,7 @@ async function loadWaterBodies() {
       outline.computeLineDistances();
       outline.renderOrder = 2;
       scene.add(outline);
+      lakeMeshes.push(outline);
     }
 
     count++;
@@ -339,6 +352,9 @@ const geoCWInner = new THREE.RingGeometry(0.14, 0.18, 16);     // citywell: doub
 const geoCWOuter = new THREE.RingGeometry(0.26, 0.32, 16);     // citywell: double ring (outer)
 const geoSTP     = new THREE.PlaneGeometry(1.0, 0.55);         // STP: flat plan rectangle
 
+let cropsData = [];
+let riverData = null;
+
 async function loadMarks() {
   const [resPoints, resStd] = await Promise.all([
     fetch('/data/points.json'),
@@ -347,13 +363,27 @@ async function loadMarks() {
   const points = await resPoints.json();
   const std = await resStd.json();
   loadStandards(std);
+  cropsData = std.crops || [];
+  riverData = std.rivers;
 
   let count = 0;
   for (const p of points) {
-    // 5.5: Lakes are already polygons — no mark needed
-    if (p.kind === 'lake') continue;
-
     const [x, z] = project(p.lon, p.lat);
+
+    if (p.kind === 'lake') {
+      const mesh = new THREE.Mesh(new THREE.CircleGeometry(0.8, 16), new THREE.MeshBasicMaterial({visible: false}));
+      mesh.rotation.x = -Math.PI / 2;
+      mesh.position.set(x, 0.05, z);
+      mesh.userData = {
+        kind: p.kind, id: p.id, point: p, verdict: lakeVerdict(p.v || {}),
+        px: 0, baseSize: 1, capacity: 0, fullH: 0
+      };
+      scene.add(mesh);
+      markMeshes.push(mesh);
+      pickables.push(mesh);
+      count++;
+      continue;
+    }
 
     // Merge metals for verdict
     const vals = { ...p.v };
@@ -646,6 +676,17 @@ function fillPanel(p, v) {
   html += `<div class="p-disclaimer">A published sample from this location and period — not a live reading.</div>`;
   html += `<div class="p-rule"></div>`;
 
+  const isGWorCW = p.kind === 'groundwater' || p.kind === 'citywell';
+  if (isGWorCW) {
+    html += `
+      <div class="tabs">
+        <button class="tab-btn active" onclick="document.getElementById('tab-drink').style.display='block'; document.getElementById('tab-irr').style.display='none'; this.classList.add('active'); this.nextElementSibling.classList.remove('active');">DRINKING</button>
+        <button class="tab-btn" onclick="document.getElementById('tab-drink').style.display='none'; document.getElementById('tab-irr').style.display='block'; this.classList.add('active'); this.previousElementSibling.classList.remove('active');">IRRIGATION</button>
+      </div>
+      <div id="tab-drink" style="display:block;">
+    `;
+  }
+
   if (isSTP) {
     const cap = p.meta?.capacity_mld || '';
     const tech = p.meta?.technology || '';
@@ -681,6 +722,33 @@ function fillPanel(p, v) {
       const act = ACTION[e.param];
       if (act) html += `<div class="p-action">${act}</div>`;
     }
+  }
+
+  if (isGWorCW) {
+    html += `</div>`; // end tab-drink
+    html += `<div id="tab-irr" style="display:none;">`;
+    const irr = irrigationVerdict(p.v || {});
+    html += `<div class="p-verdict">CPCB Class E: ${irr.state}</div>`;
+    for (const c of irr.checks) html += `<div class="p-action" style="margin-left: 10px;">${c}</div>`;
+    html += `<div class="p-rule"></div><div class="p-action-title">PREDICTED YIELD LOSS</div>`;
+    
+    const relWeight = { 'VERY HIGH - Nagpur signature crop': 4, 'high': 3, 'medium': 2, 'low': 1 };
+    const sortedCrops = [...cropsData].sort((a, b) => (relWeight[b.nagpur_relevance] || 0) - (relWeight[a.nagpur_relevance] || 0));
+    
+    let methodPrinted = '';
+    for (const c of sortedCrops) {
+      const lossData = cropLoss(p.v?.ec, c);
+      if (lossData) {
+        if (!methodPrinted) methodPrinted = lossData.method;
+        html += `<div class="p-action" style="display: flex; justify-content: space-between;">
+          <span>${c.crop}</span><span>${lossData.loss}%</span>
+        </div>`;
+      }
+    }
+    if (methodPrinted) {
+      html += `<div class="p-disclaimer" style="margin-top: 10px;">${methodPrinted}</div>`;
+    }
+    html += `</div>`; // end tab-irr
   }
 
   html += `<div class="p-rule"></div>`;
@@ -792,6 +860,24 @@ function applyFilter(filter) {
     if (m.material.opacity !== undefined) m.material.opacity = opa * ({ groundwater: 0.35, river: 0.60, citywell: 0.85, stp: 0.45 }[k] || 0.5);
     if (m.userData.proxy) m.userData.proxy.visible = vis && isHealthExceed;
   }
+  
+  // 7.10: setMode must also drive the lake polygons and shorelines
+  const lakeVis = (filter === 'all' || filter === 'rivers');
+  for (const l of lakeMeshes) l.visible = lakeVis;
+  
+  // Also watercourses
+  for (const w of waterwayMeshes) w.visible = lakeVis;
+
+  // 7.10: Selection must survive a mode change
+  if (selected && (!selected.visible || (selected.material && selected.material.opacity < 0.1))) {
+    setSelected(null);
+  }
+
+  // 7.7: Toggle particles
+  if (typeof pts !== 'undefined' && pts) {
+    pts.visible = (filter === 'all' || filter === 'rivers') && tier > 0;
+  }
+
   // Navigate to treatment centroid
   if (filter === 'treatment') gotoAnchor('treatment');
   if (filter === 'unmeasured') {
@@ -860,17 +946,32 @@ function updateLakeLabels() {
 const clock = new THREE.Clock();
 let lastTime = 0;
 
+let frames = 0, fpsT = 0, tier = 2; // 2 = full, 1 = no particles, 0 = no composite
+let useComposite = true;
+function monitorFps(dt) {
+  frames++; fpsT += dt;
+  if (fpsT < 1) return;
+  const fps = frames / fpsT; frames = 0; fpsT = 0;
+  if (fps < 40 && tier === 2) { tier = 1; if (typeof pts !== 'undefined' && pts) pts.visible = false; console.warn('tier 1: particles off'); }
+  else if (fps < 32 && tier === 1) { tier = 0; useComposite = false; console.warn('tier 0: composite off'); }
+}
+
 function animate() {
   requestAnimationFrame(animate);
   const t = clock.getElapsedTime();
   const dt = Math.min(t - lastTime, 0.1);
   lastTime = t;
 
+  monitorFps(dt);
+
+  // 7.7: Update River Particles
+  if (typeof updateParticles !== 'undefined') updateParticles(dt);
+
   if (controls.enabled) {
     controls.update();
   } else {
     const drift = new THREE.Vector3(
-      Math.sin(t*0.13)*0.9, Math.sin(t*0.09+1.7)*0.5, Math.cos(t*0.11)*0.9);
+      Math.sin(t*0.13)*0.9*DRIFT, Math.sin(t*0.09+1.7)*0.5*DRIFT, Math.cos(t*0.11)*0.9*DRIFT);
     const want = desired.pos.clone().add(drift);
     vel.addScaledVector(want.clone().sub(camera.position), STIFF*dt);
     vel.multiplyScalar(DAMP);
@@ -896,6 +997,15 @@ function animate() {
     lastPick = t;
     const next = pickAt(ptr);
     if (next !== hovered) { setHovered(next); refreshPanel(); }
+  }
+
+  // Tier 0 fallback: render diffuse straight to screen
+  if (!useComposite) {
+    camera.layers.set(0);
+    renderer.setRenderTarget(null);
+    renderer.clear();
+    renderer.render(scene, camera);
+    return;
   }
 
   const savedBg = scene.background;
@@ -944,3 +1054,104 @@ export { scene, camera, renderer, controls, plane, planeMat, compositeMat,
          rtDiffuse, rtNormal, rtHighlight, normalMat, noiseTex,
          BG, SHEET, INK, NORMAL_CLEAR, S, cLon, cLat, kx, FIT, lineMats, PEN, B,
          W, H, dpr, project, gotoAnchor, ANCHORS, markMeshes, pickables };
+// ─── 7.7: River Particles (CPU) ───
+let pts = null;
+const N = 3000;
+const seed = new Array(N);
+let riverPaths = [];
+
+async function initParticles() {
+  const res = await fetch('/data/waterways.json');
+  const waterways = await res.json();
+  riverPaths = waterways
+    .filter(f => f.w === 'river' || f.w === 'canal')
+    .map(f => f.p.map(([lon, lat]) => { const [x, z] = project(lon, lat); return [x, z]; }))
+    .filter(p => p.length > 8);
+    
+  if (riverPaths.length === 0) return;
+
+  const geo = new THREE.BufferGeometry();
+  const pos = new Float32Array(N * 3);
+  const col = new Float32Array(N * 3);
+
+  for (let i = 0; i < N; i++) {
+    const path = riverPaths[(Math.random() * riverPaths.length) | 0];
+    seed[i] = { path, t: Math.random() * (path.length - 1), life: 3 + Math.random() * 7, speed: 1.2 + Math.random() * 0.8 };
+    pos[i * 3] = path[0][0];
+    pos[i * 3 + 1] = 0.025;
+    pos[i * 3 + 2] = path[0][1];
+  }
+
+  geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+  geo.setAttribute('color', new THREE.BufferAttribute(col, 3));
+
+  const mat = new THREE.PointsMaterial({
+    size: 1.6, sizeAttenuation: false,
+    transparent: true, opacity: 0.21, // halved opacity as requested if it's too bright
+    vertexColors: true, fog: true,
+    depthWrite: false,
+  });
+  pts = new THREE.Points(geo, mat);
+  pts.layers.set(0); 
+  pts.renderOrder = 2;
+  scene.add(pts);
+}
+
+const INK_DARK = new THREE.Color('#1a2626');
+const WATER = new THREE.Color('#98b4b8'); // soft blue
+const c = new THREE.Color();
+
+window.updateParticles = function(dt) {
+  if (!pts || !pts.visible || !riverData || !riverData.Nag || riverPaths.length === 0) return;
+  const pos = pts.geometry.attributes.position.array;
+  const col = pts.geometry.attributes.color.array;
+  
+  const DO = riverData.Nag.map(r => r.do ?? r); // wait, riverData.Nag[x].do is the field! "do: 3.67"
+  function doAt(u) {
+    const f = u * (DO.length - 1);
+    const i = Math.floor(f);
+    return THREE.MathUtils.lerp(DO[i], DO[Math.min(i + 1, DO.length - 1)], f - i);
+  }
+
+  for (let i = 0; i < N; i++) {
+    const s = seed[i];
+    s.t += dt * s.speed * (typeof DRIFT !== 'undefined' && DRIFT > 0 ? 1 : 0);
+    s.life -= dt;
+    if (s.t >= s.path.length - 1 || s.life <= 0) {
+      s.path = riverPaths[(Math.random() * riverPaths.length) | 0];
+      s.t = 0;
+      s.life = 3 + Math.random() * 7;
+    }
+
+    const idx = Math.floor(s.t);
+    const frac = s.t - idx;
+    const p0 = s.path[idx];
+    const p1 = s.path[Math.min(idx + 1, s.path.length - 1)];
+    
+    let x = p0[0] + (p1[0] - p0[0]) * frac;
+    let z = p0[1] + (p1[1] - p0[1]) * frac;
+
+    const dx = p1[0] - p0[0], dz = p1[1] - p0[1];
+    const len = Math.sqrt(dx*dx + dz*dz) || 1;
+    const nx = -dz / len, nz = dx / len;
+    
+    const jitter = Math.sin(s.life * 10 + i) * 0.015;
+    x += nx * jitter;
+    z += nz * jitter;
+
+    pos[i * 3] = x;
+    pos[i * 3 + 2] = z;
+
+    const ox = doAt(s.t / (s.path.length - 1));
+    const k = Math.max(0, Math.min(1, (ox - 0.48) / (3.67 - 0.48)));
+    c.setHex(0x000000).lerpColors(INK_DARK, WATER, k);
+    
+    col[i * 3] = c.r;
+    col[i * 3 + 1] = c.g;
+    col[i * 3 + 2] = c.b;
+  }
+  
+  pts.geometry.attributes.position.needsUpdate = true;
+  pts.geometry.attributes.color.needsUpdate = true;
+};
+initParticles();
