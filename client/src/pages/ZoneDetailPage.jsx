@@ -24,7 +24,7 @@ import {
   CheckCircle2,
   BrainCircuit,
   Info,
-  Clock
+  X
 } from 'lucide-react';
 
 export const ZoneDetailPage = () => {
@@ -42,7 +42,7 @@ export const ZoneDetailPage = () => {
 
   // Upload Form states
   const [showUploadModal, setShowUploadModal] = useState(false);
-  const [uploadMonth, setUploadMonth] = useState('2026-07');
+  const [uploadMonth, setUploadMonth] = useState('');
   const [uploadMld, setUploadMld] = useState('');
   const [uploadNrw, setUploadNrw] = useState('');
   const [uploadTanker, setUploadTanker] = useState('');
@@ -60,17 +60,23 @@ export const ZoneDetailPage = () => {
       setHistory(histData);
       setTrend(trendData);
 
-      // Default upload month to next month after latest
       if (histData.length > 0) {
-        const lastMonth = histData[histData.length - 1].month;
+        const lastRecord = histData[histData.length - 1];
+        const lastMonth = lastRecord.month;
         const [year, m] = lastMonth.split('-').map(Number);
-        const nextDate = new Date(year, m); // next month
-        const nextYear = nextDate.getFullYear();
-        const nextMonthNum = String(nextDate.getMonth() + 1).padStart(2, '0');
-        setUploadMonth(`${nextYear}-${nextMonthNum}`);
-        setUploadMld(String(histData[histData.length - 1].mld_supplied));
-        setUploadNrw(String(histData[histData.length - 1].nrw_pct));
-        setUploadTanker(String(histData[histData.length - 1].tanker_count));
+        
+        let nextYear = year;
+        let nextMonth = m + 1;
+        if (nextMonth > 12) {
+          nextMonth = 1;
+          nextYear += 1;
+        }
+        const nextMonthStr = `${nextYear}-${String(nextMonth).padStart(2, '0')}`;
+
+        setUploadMonth(nextMonthStr);
+        setUploadMld(String(lastRecord.mld_supplied));
+        setUploadNrw(String(lastRecord.nrw_pct));
+        setUploadTanker(String(lastRecord.tanker_count));
       }
     } catch (err) {
       console.error('Error loading zone detail:', err);
@@ -98,6 +104,18 @@ export const ZoneDetailPage = () => {
     }
   };
 
+  const openUploadModal = () => {
+    setUploadWarning('');
+    setUploadSuccess('');
+    setShowUploadModal(true);
+  };
+
+  const closeUploadModal = () => {
+    setShowUploadModal(false);
+    setUploadWarning('');
+    setUploadSuccess('');
+  };
+
   const handleUploadSubmit = async (e) => {
     e.preventDefault();
     setUploadLoading(true);
@@ -116,9 +134,12 @@ export const ZoneDetailPage = () => {
         setUploadWarning(result.warning);
       } else {
         setUploadSuccess(`Monthly record for ${uploadMonth} saved successfully!`);
+        setTimeout(() => {
+          closeUploadModal();
+        }, 1800);
       }
 
-      await loadData(); // Reload chart & table
+      await loadData();
     } catch (err) {
       console.error('Upload failed:', err);
       setUploadWarning(err.response?.data?.message || 'Failed to upload monthly record.');
@@ -149,7 +170,6 @@ export const ZoneDetailPage = () => {
     );
   };
 
-  // Recent 3 months table slice
   const recentTableRecords = [...history].reverse().slice(0, 4);
 
   return (
@@ -160,7 +180,7 @@ export const ZoneDetailPage = () => {
           <ArrowLeft size={18} /> Back to Overview
         </button>
 
-        <button onClick={() => setShowUploadModal(true)} className="btn btn-primary" style={{ gap: '0.5rem' }}>
+        <button onClick={openUploadModal} className="btn btn-gold btn-gold-shimmer" style={{ gap: '0.5rem' }}>
           <Upload size={18} /> Upload This Month's Data
         </button>
       </div>
@@ -168,7 +188,7 @@ export const ZoneDetailPage = () => {
       {/* Zone Header Bar */}
       <div className="glass-panel" style={{ padding: '1.75rem', marginBottom: '2rem', display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center', gap: '1rem' }}>
         <div>
-          <div style={{ fontSize: '0.85rem', color: 'var(--accent-cyan)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+          <div style={{ fontSize: '0.85rem', color: 'var(--accent-gold-dark)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
             NMC Municipal Zone Analytics
           </div>
           <h1 style={{ fontSize: '2.25rem', fontWeight: 800, color: 'var(--text-primary)', margin: '0.25rem 0' }}>
@@ -190,201 +210,184 @@ export const ZoneDetailPage = () => {
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '1.5rem', marginBottom: '2rem' }}>
         
         {/* Line Chart Card */}
-        <div className="glass-card" style={{ padding: '1.5rem', gridColumn: 'span 2' }}>
+        <div className="glass-card" style={{ padding: '1.75rem', gridColumn: 'span 2' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
             <div>
-              <h3 style={{ fontSize: '1.15rem', fontWeight: 700, color: 'var(--text-primary)' }}>
-                NRW% Trend Line History
-              </h3>
-              <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>
-                Non-Revenue Water loss percentage across recorded months
+              <h2 style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--text-primary)' }}>
+                Historical Non-Revenue Water (NRW%) Trend
+              </h2>
+              <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
+                Monthly loss percentages with 45% critical risk threshold
               </p>
             </div>
-
-            <div style={{ display: 'flex', gap: '1rem', fontSize: '0.75rem', color: 'var(--text-muted)' }}>
-              <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                <span style={{ width: '10px', height: '10px', background: '#38bdf8', borderRadius: '50%' }}></span> Recorded NRW%
-              </span>
-              <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                <span style={{ width: '10px', height: '10px', background: '#ef4444', borderRadius: '50%' }}></span> Critical Limit (45%)
-              </span>
+            <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', display: 'flex', alignItems: 'center', gap: '6px' }}>
+              <Info size={14} /> Red line = 45% Critical Alert Threshold
             </div>
           </div>
 
-          <div style={{ height: '320px', width: '100%' }}>
-            <ResponsiveContainer width="100%" height="100%">
-              <LineChart data={history} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.06)" />
-                <XAxis dataKey="month" stroke="var(--text-muted)" fontSize={12} tickLine={false} />
-                <YAxis stroke="var(--text-muted)" fontSize={12} domain={[0, 70]} tickFormatter={(v) => `${v}%`} />
-                <Tooltip
-                  contentStyle={{
-                    background: 'rgba(15, 23, 42, 0.95)',
-                    border: '1px solid var(--border-glow)',
-                    borderRadius: '12px',
-                    color: '#fff'
-                  }}
-                  formatter={(value, name) => [`${value}%`, 'NRW Loss']}
-                  labelFormatter={(label) => `Month: ${label}`}
-                />
-                <ReferenceLine y={45} stroke="#ef4444" strokeDasharray="4 4" label={{ value: '45% High Loss', fill: '#ef4444', fontSize: 11 }} />
-                <Line
-                  type="monotone"
-                  dataKey="nrw_pct"
-                  stroke="#38bdf8"
-                  strokeWidth={3}
-                  dot={{ r: 5, fill: '#0284c7', stroke: '#38bdf8', strokeWidth: 2 }}
-                  activeDot={{ r: 8, fill: '#38bdf8' }}
-                />
-              </LineChart>
-            </ResponsiveContainer>
-          </div>
+          {loading ? (
+            <div style={{ height: '320px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--text-muted)' }}>
+              Loading historical chart...
+            </div>
+          ) : (
+            <div style={{ height: '320px', width: '100%' }}>
+              <ResponsiveContainer width="100%" height="100%">
+                <LineChart data={history} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
+                  <CartesianGrid strokeDasharray="3 3" stroke="rgba(13,27,42,0.08)" />
+                  <XAxis dataKey="month" stroke="var(--text-secondary)" tick={{ fontSize: 12 }} />
+                  <YAxis domain={[0, 60]} stroke="var(--text-secondary)" tick={{ fontSize: 12 }} unit="%" />
+                  <Tooltip
+                    contentStyle={{
+                      background: '#ffffff',
+                      borderRadius: '12px',
+                      boxShadow: '0 8px 24px rgba(13,27,42,0.15)',
+                      border: '1px solid rgba(13,27,42,0.1)',
+                      fontSize: '0.85rem'
+                    }}
+                  />
+                  <ReferenceLine y={45} stroke="#ef4444" strokeDasharray="4 4" label={{ value: '45% Threshold', fill: '#ef4444', fontSize: 12, position: 'top' }} />
+                  <Line
+                    type="monotone"
+                    dataKey="nrw_pct"
+                    name="NRW %"
+                    stroke="#0284c7"
+                    strokeWidth={3}
+                    dot={{ r: 5, fill: '#0284c7' }}
+                    activeDot={{ r: 8, fill: '#c9a15f' }}
+                  />
+                </LineChart>
+              </ResponsiveContainer>
+            </div>
+          )}
         </div>
 
-        {/* Trend & Linear Prediction Card */}
-        <div className="glass-card" style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-          <div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--accent-cyan)', fontWeight: 700, fontSize: '0.9rem', marginBottom: '0.85rem' }}>
-              <BrainCircuit size={20} /> Linear Regression Trend
+        {/* Right Side: Trend Projection & Stats */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+          {/* Predictive Trend Card */}
+          <div className="glass-card" style={{ padding: '1.5rem', background: 'linear-gradient(135deg, #0d1b2a 0%, #1e2d42 100%)', color: '#ffffff' }}>
+            <div style={{ fontSize: '0.8rem', color: '#c9a15f', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.5rem' }}>
+              Linear Regression Forecast
             </div>
-
-            <h3 style={{ fontSize: '1.2rem', fontWeight: 800, marginBottom: '0.5rem' }}>
-              Predicted Next Month
+            <h3 style={{ fontSize: '1.35rem', fontWeight: 800, marginBottom: '1rem', color: '#ffffff' }}>
+              Next Month Projection
             </h3>
 
             {trend ? (
-              <div style={{ margin: '1.25rem 0' }}>
-                <div style={{ fontSize: '2.75rem', fontWeight: 800, color: 'var(--text-primary)' }}>
+              <div>
+                <div style={{ fontSize: '2.5rem', fontWeight: 800, color: '#c9a15f', marginBottom: '0.25rem' }}>
                   {trend.predicted_next_month_nrw_pct}%
                 </div>
-                <div style={{ marginTop: '0.5rem' }}>
-                  {getTrendBadge(trend.direction)}
+                <div style={{ fontSize: '0.85rem', color: '#94a3b8', marginBottom: '1rem' }}>
+                  Calculated using least-squares linear regression (Slope: <strong>{trend.slope > 0 ? `+${trend.slope}` : trend.slope}</strong> / month)
                 </div>
-                <div style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', marginTop: '0.75rem' }}>
-                  Calculated slope: <strong style={{ color: '#fff' }}>{trend.slope > 0 ? `+${trend.slope}` : trend.slope}%/month</strong>
+
+                <div style={{ padding: '0.85rem', background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 'var(--radius-sm)', fontSize: '0.825rem', color: '#e2e8f0' }}>
+                  <strong>Operational Outlook:</strong> {trend.predicted_next_month_nrw_pct > 45 ? 'High risk of exceeding critical loss threshold. Priority field action recommended.' : 'NRW levels projected within acceptable municipal range.'}
                 </div>
               </div>
             ) : (
-              <div style={{ color: 'var(--text-muted)' }}>Calculating trend...</div>
+              <div style={{ color: '#94a3b8', fontSize: '0.85rem' }}>Computing trend...</div>
             )}
           </div>
 
-          <div style={{
-            background: 'rgba(255, 255, 255, 0.03)',
-            border: '1px solid var(--border-color)',
-            padding: '0.85rem 1rem',
-            borderRadius: 'var(--radius-md)',
-            fontSize: '0.775rem',
-            color: 'var(--text-muted)',
-            display: 'flex',
-            alignItems: 'flex-start',
-            gap: '0.5rem'
-          }}>
-            <Info size={16} color="var(--accent-cyan)" style={{ shrink: 0, marginTop: '2px' }} />
-            <span>Estimate based on recent linear least-squares trend, not a guarantee.</span>
-          </div>
+          {/* Quick Metrics */}
+          {history.length > 0 && (
+            <div className="glass-card" style={{ padding: '1.5rem' }}>
+              <div style={{ fontSize: '0.85rem', fontWeight: 700, color: 'var(--text-primary)', marginBottom: '0.85rem' }}>
+                Latest Log Snapshot ({history[history.length - 1].month})
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.65rem', fontSize: '0.875rem' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--text-secondary)' }}>
+                  <span>Water Supplied:</span>
+                  <strong style={{ color: 'var(--text-primary)' }}>{history[history.length - 1].mld_supplied} MLD</strong>
+                </div>
+                <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--text-secondary)' }}>
+                  <span>NRW Loss:</span>
+                  <strong style={{ color: 'var(--text-primary)' }}>{history[history.length - 1].nrw_pct}%</strong>
+                </div>
+                <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--text-secondary)' }}>
+                  <span>Tanker Trips:</span>
+                  <strong style={{ color: 'var(--text-primary)' }}>{history[history.length - 1].tanker_count} Dispatched</strong>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </div>
 
-      {/* Gemini AI Summary Section */}
-      <div className="glass-panel" style={{ padding: '1.75rem', marginBottom: '2.5rem', position: 'relative', overflow: 'hidden' }}>
-        <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center', gap: '1rem', marginBottom: '1.25rem' }}>
-          <div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-              <Sparkles size={22} color="#a855f7" />
-              <h2 style={{ fontSize: '1.35rem', fontWeight: 800, color: 'var(--text-primary)' }}>
-                Gemini AI Operational Summary
-              </h2>
+      {/* AI Operational Summary Section */}
+      <div className="glass-panel" style={{ padding: '1.75rem', marginBottom: '2.5rem' }}>
+        <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center', gap: '1rem', marginBottom: '1rem' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+            <div style={{ background: 'rgba(201, 161, 95, 0.15)', padding: '0.6rem', borderRadius: '10px' }}>
+              <BrainCircuit size={22} color="#c9a15f" />
             </div>
-            <p style={{ fontSize: '0.875rem', color: 'var(--text-secondary)', marginTop: '0.25rem' }}>
-              AI analysis of last 3 months data, trend pattern, and actionable field recommendation
-            </p>
+            <div>
+              <h2 style={{ fontSize: '1.3rem', fontWeight: 800, color: 'var(--text-primary)' }}>
+                Zone AI Operational Summary
+              </h2>
+              <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
+                Gemini AI analysis of recent trends and recommended field worker interventions
+              </p>
+            </div>
           </div>
 
           <button
-            id="generate-ai-btn"
             onClick={handleGenerateAi}
             className="btn btn-ai"
             disabled={aiLoading}
+            style={{ gap: '0.5rem' }}
           >
-            <Sparkles size={18} />
-            {aiLoading ? 'Generating AI Summary...' : 'Generate AI Summary'}
+            <Sparkles size={16} />
+            {aiLoading ? 'Generating AI Briefing...' : 'Generate Zone AI Briefing'}
           </button>
         </div>
 
-        {aiLoading && (
-          <div style={{ padding: '2rem', textAlign: 'center', color: 'var(--accent-cyan)' }}>
-            <Sparkles size={28} className="glow-pulse" style={{ marginBottom: '0.5rem' }} />
-            <div>Building prompt & analyzing 3-month dataset via Google Gemini API...</div>
-          </div>
-        )}
-
-        {aiSummary && !aiLoading && (
+        {aiSummary && (
           <div className="animate-fade-in" style={{
-            background: 'rgba(124, 58, 237, 0.08)',
-            border: '1px solid rgba(168, 85, 247, 0.25)',
+            background: 'rgba(13, 27, 42, 0.04)',
+            border: '1px solid var(--border-color)',
             borderRadius: 'var(--radius-md)',
-            padding: '1.5rem',
-            position: 'relative'
+            padding: '1.25rem',
+            marginTop: '1rem'
           }}>
-            <div style={{ fontSize: '0.95rem', lineHeight: 1.6, color: '#f3e8ff' }}>
+            <div style={{ fontSize: '0.95rem', lineHeight: 1.65, color: 'var(--text-primary)' }}>
               {aiSummary}
             </div>
-            {aiSource && (
-              <div style={{ marginTop: '1rem', fontSize: '0.75rem', color: '#c084fc', display: 'flex', alignItems: 'center', gap: '4px' }}>
-                <BrainCircuit size={12} /> Powered by {aiSource} model
-              </div>
-            )}
+            <div style={{ marginTop: '0.75rem', fontSize: '0.775rem', color: 'var(--text-muted)', display: 'flex', alignItems: 'center', gap: '4px' }}>
+              <Info size={13} /> Generated by: <strong>{aiSource}</strong>
+            </div>
           </div>
         )}
       </div>
 
-      {/* Recent Monthly Records Table */}
-      <div className="glass-card" style={{ padding: '1.5rem' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem' }}>
-          <div>
-            <h3 style={{ fontSize: '1.15rem', fontWeight: 700, color: 'var(--text-primary)' }}>
-              Recent Monthly Log Entries
-            </h3>
-            <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>
-              Showing latest recorded months with source provenance badges
-            </p>
-          </div>
-        </div>
-
+      {/* Monthly Log History Table */}
+      <div className="glass-card" style={{ padding: '1.75rem', marginBottom: '2rem' }}>
+        <h2 style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--text-primary)', marginBottom: '1.25rem' }}>
+          Recent Monthly Records
+        </h2>
         <div style={{ overflowX: 'auto' }}>
-          <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.9rem' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.9rem' }}>
             <thead>
-              <tr style={{ borderBottom: '1px solid var(--border-color)', color: 'var(--text-muted)', fontSize: '0.8rem', textTransform: 'uppercase' }}>
-                <th style={{ padding: '0.75rem 1rem' }}>Month</th>
-                <th style={{ padding: '0.75rem 1rem' }}>Water Supplied (MLD)</th>
-                <th style={{ padding: '0.75rem 1rem' }}>NRW %</th>
-                <th style={{ padding: '0.75rem 1rem' }}>Tankers Dispatched</th>
-                <th style={{ padding: '0.75rem 1rem' }}>Uploaded By</th>
-                <th style={{ padding: '0.75rem 1rem' }}>Data Origin</th>
+              <tr style={{ borderBottom: '2px solid var(--border-color)', textAlign: 'left', color: 'var(--text-secondary)' }}>
+                <th style={{ padding: '0.75rem' }}>Month</th>
+                <th style={{ padding: '0.75rem' }}>Supplied (MLD)</th>
+                <th style={{ padding: '0.75rem' }}>NRW %</th>
+                <th style={{ padding: '0.75rem' }}>Tankers</th>
+                <th style={{ padding: '0.75rem' }}>Data Provenance</th>
               </tr>
             </thead>
             <tbody>
-              {recentTableRecords.map((row, idx) => (
-                <tr key={idx} style={{ borderBottom: '1px solid rgba(255,255,255,0.04)' }}>
-                  <td style={{ padding: '0.85rem 1rem', fontWeight: 700, color: 'var(--text-primary)' }}>
-                    <Calendar size={14} style={{ display: 'inline', marginRight: '6px', verticalAlign: 'middle', color: 'var(--accent-cyan)' }} />
-                    {row.month}
+              {recentTableRecords.map((r, i) => (
+                <tr key={r._id || i} style={{ borderBottom: '1px solid var(--border-color)' }}>
+                  <td style={{ padding: '0.75rem', fontWeight: 700 }}>{r.month}</td>
+                  <td style={{ padding: '0.75rem' }}>{r.mld_supplied} MLD</td>
+                  <td style={{ padding: '0.75rem', fontWeight: 700, color: r.nrw_pct > 45 ? '#ef4444' : r.nrw_pct >= 30 ? '#f59e0b' : '#10b981' }}>
+                    {r.nrw_pct}%
                   </td>
-                  <td style={{ padding: '0.85rem 1rem', color: 'var(--text-primary)' }}>
-                    {row.mld_supplied} MLD
-                  </td>
-                  <td style={{ padding: '0.85rem 1rem', fontWeight: 700, color: row.nrw_pct > 45 ? '#f87171' : row.nrw_pct >= 30 ? '#fbbf24' : '#34d399' }}>
-                    {row.nrw_pct}%
-                  </td>
-                  <td style={{ padding: '0.85rem 1rem', color: 'var(--text-primary)' }}>
-                    {row.tanker_count} trips
-                  </td>
-                  <td style={{ padding: '0.85rem 1rem', color: 'var(--text-secondary)' }}>
-                    {row.uploaded_by}
-                  </td>
-                  <td style={{ padding: '0.85rem 1rem' }}>
-                    <SyntheticBadge isSynthetic={row.is_synthetic} />
+                  <td style={{ padding: '0.75rem' }}>{r.tanker_count}</td>
+                  <td style={{ padding: '0.75rem' }}>
+                    <SyntheticBadge isSynthetic={r.is_synthetic} />
                   </td>
                 </tr>
               ))}
@@ -393,116 +396,168 @@ export const ZoneDetailPage = () => {
         </div>
       </div>
 
-      {/* Upload Modal Dialog */}
+      {/* Upload Modal Dialog (Fixed Top Z-Index 9999) */}
       {showUploadModal && (
-        <div style={{
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          background: 'rgba(6, 11, 24, 0.85)',
-          backdropFilter: 'blur(8px)',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          zIndex: 100,
-          padding: '1rem'
-        }}>
-          <div className="glass-panel animate-fade-in" style={{ maxWidth: '500px', width: '100%', padding: '2rem' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
-              <h3 style={{ fontSize: '1.35rem', fontWeight: 800, color: 'var(--text-primary)' }}>
-                Upload Monthly Data ({zoneName})
-              </h3>
+        <div
+          onClick={closeUploadModal}
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            background: 'rgba(5, 7, 13, 0.8)',
+            backdropFilter: 'blur(8px)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            zIndex: 9999,
+            padding: '1.25rem'
+          }}
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className="glass-panel animate-fade-in"
+            style={{
+              maxWidth: '520px',
+              width: '100%',
+              padding: '2.25rem',
+              background: '#ffffff',
+              borderRadius: '16px',
+              boxShadow: '0 25px 60px rgba(13, 27, 42, 0.4), 0 0 30px rgba(201, 161, 95, 0.2)',
+              border: '1px solid rgba(201, 161, 95, 0.3)'
+            }}
+          >
+            {/* Modal Header */}
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem', paddingBottom: '0.85rem', borderBottom: '1px solid var(--border-color)' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
+                <div style={{ background: 'linear-gradient(135deg, #c9a15f 0%, #a68142 100%)', padding: '0.5rem', borderRadius: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <Upload size={20} color="#0d1b2a" />
+                </div>
+                <div>
+                  <h3 style={{ fontSize: '1.3rem', fontWeight: 800, color: '#0d1b2a' }}>
+                    Upload Monthly Log
+                  </h3>
+                  <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)' }}>
+                    Zone: <strong>{zoneName}</strong>
+                  </div>
+                </div>
+              </div>
               <button
-                onClick={() => { setShowUploadModal(false); setUploadWarning(''); setUploadSuccess(''); }}
-                style={{ background: 'none', border: 'none', color: 'var(--text-muted)', cursor: 'pointer', fontSize: '1.25rem' }}
+                onClick={closeUploadModal}
+                style={{ background: 'none', border: 'none', color: 'var(--text-muted)', cursor: 'pointer', padding: '4px' }}
               >
-                ✕
+                <X size={22} />
               </button>
             </div>
 
             {uploadWarning && (
-              <div className="alert-warning-banner">
-                <AlertTriangle size={24} style={{ shrink: 0 }} />
-                <div style={{ fontSize: '0.875rem', lineHeight: 1.4 }}>
-                  <strong>Jump Validation Alert:</strong> {uploadWarning}
+              <div className="alert-warning-banner" style={{ marginBottom: '1.25rem' }}>
+                <AlertTriangle size={22} style={{ flexShrink: 0 }} />
+                <div style={{ fontSize: '0.85rem', lineHeight: 1.4 }}>
+                  <strong>20% Jump Validation Alert:</strong> {uploadWarning}
                 </div>
               </div>
             )}
 
             {uploadSuccess && (
-              <div className="alert-warning-banner" style={{ background: 'rgba(16, 185, 129, 0.12)', borderColor: 'rgba(16, 185, 129, 0.3)', color: '#34d399', borderLeftColor: '#10b981' }}>
-                <CheckCircle2 size={24} style={{ shrink: 0 }} />
-                <div style={{ fontSize: '0.875rem' }}>{uploadSuccess}</div>
+              <div className="alert-warning-banner" style={{ background: '#ecfdf5', borderColor: '#a7f3d0', color: '#065f46', borderLeftColor: '#10b981', marginBottom: '1.25rem' }}>
+                <CheckCircle2 size={22} style={{ flexShrink: 0 }} />
+                <div style={{ fontSize: '0.875rem', fontWeight: 700 }}>{uploadSuccess}</div>
               </div>
             )}
 
             <form onSubmit={handleUploadSubmit}>
-              <div className="form-group">
-                <label className="form-label">Month (YYYY-MM)</label>
-                <input
-                  type="text"
-                  className="form-input"
-                  value={uploadMonth}
-                  onChange={(e) => setUploadMonth(e.target.value)}
-                  placeholder="e.g. 2026-07"
-                  required
-                />
+              <div className="form-group" style={{ marginBottom: '1.1rem' }}>
+                <label className="form-label" style={{ fontWeight: 700, color: '#0d1b2a', fontSize: '0.875rem' }}>
+                  Target Month (YYYY-MM)
+                </label>
+                <div style={{ position: 'relative' }}>
+                  <input
+                    type="text"
+                    className="form-input"
+                    value={uploadMonth}
+                    onChange={(e) => setUploadMonth(e.target.value)}
+                    placeholder="e.g. 2026-07"
+                    required
+                    style={{ paddingLeft: '2.5rem', fontWeight: 700 }}
+                  />
+                  <Calendar size={18} style={{ position: 'absolute', left: '0.85rem', top: '50%', transform: 'translateY(-50%)', color: '#c9a15f' }} />
+                </div>
               </div>
 
-              <div className="form-group">
-                <label className="form-label">Water Supplied (MLD)</label>
-                <input
-                  type="number"
-                  step="0.01"
-                  className="form-input"
-                  value={uploadMld}
-                  onChange={(e) => setUploadMld(e.target.value)}
-                  placeholder="e.g. 225.5"
-                  required
-                />
-              </div>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', marginBottom: '1.1rem' }}>
+                <div className="form-group">
+                  <label className="form-label" style={{ fontWeight: 700, color: '#0d1b2a', fontSize: '0.85rem' }}>
+                    Water Supplied (MLD)
+                  </label>
+                  <div style={{ position: 'relative' }}>
+                    <input
+                      type="number"
+                      step="0.01"
+                      className="form-input"
+                      value={uploadMld}
+                      onChange={(e) => setUploadMld(e.target.value)}
+                      placeholder="e.g. 225.5"
+                      required
+                      style={{ paddingLeft: '2.4rem' }}
+                    />
+                    <Droplets size={16} style={{ position: 'absolute', left: '0.8rem', top: '50%', transform: 'translateY(-50%)', color: '#0284c7' }} />
+                  </div>
+                </div>
 
-              <div className="form-group">
-                <label className="form-label">NRW % (Non-Revenue Water Loss)</label>
-                <input
-                  type="number"
-                  step="0.1"
-                  className="form-input"
-                  value={uploadNrw}
-                  onChange={(e) => setUploadNrw(e.target.value)}
-                  placeholder="e.g. 48.5"
-                  required
-                />
+                <div className="form-group">
+                  <label className="form-label" style={{ fontWeight: 700, color: '#0d1b2a', fontSize: '0.85rem' }}>
+                    NRW Loss (%)
+                  </label>
+                  <div style={{ position: 'relative' }}>
+                    <input
+                      type="number"
+                      step="0.1"
+                      className="form-input"
+                      value={uploadNrw}
+                      onChange={(e) => setUploadNrw(e.target.value)}
+                      placeholder="e.g. 48.5"
+                      required
+                      style={{ paddingLeft: '2.4rem' }}
+                    />
+                    <AlertTriangle size={16} style={{ position: 'absolute', left: '0.8rem', top: '50%', transform: 'translateY(-50%)', color: '#ef4444' }} />
+                  </div>
+                </div>
               </div>
 
               <div className="form-group" style={{ marginBottom: '1.75rem' }}>
-                <label className="form-label">Tanker Trips Dispatched</label>
-                <input
-                  type="number"
-                  className="form-input"
-                  value={uploadTanker}
-                  onChange={(e) => setUploadTanker(e.target.value)}
-                  placeholder="e.g. 15"
-                  required
-                />
+                <label className="form-label" style={{ fontWeight: 700, color: '#0d1b2a', fontSize: '0.85rem' }}>
+                  Tanker Trips Dispatched
+                </label>
+                <div style={{ position: 'relative' }}>
+                  <input
+                    type="number"
+                    className="form-input"
+                    value={uploadTanker}
+                    onChange={(e) => setUploadTanker(e.target.value)}
+                    placeholder="e.g. 15"
+                    required
+                    style={{ paddingLeft: '2.5rem' }}
+                  />
+                  <Truck size={18} style={{ position: 'absolute', left: '0.85rem', top: '50%', transform: 'translateY(-50%)', color: '#0d9488' }} />
+                </div>
               </div>
 
-              <div style={{ display: 'flex', gap: '0.75rem', justifyContent: 'flex-end' }}>
+              <div style={{ display: 'flex', gap: '0.75rem', justifyContent: 'flex-end', paddingTop: '1rem', borderTop: '1px solid var(--border-color)' }}>
                 <button
                   type="button"
-                  onClick={() => setShowUploadModal(false)}
+                  onClick={closeUploadModal}
                   className="btn btn-secondary"
                 >
-                  Close
+                  Cancel
                 </button>
                 <button
                   type="submit"
-                  className="btn btn-primary"
+                  className="btn btn-gold btn-gold-shimmer"
                   disabled={uploadLoading}
                 >
-                  {uploadLoading ? 'Saving...' : 'Submit & Save Record'}
+                  {uploadLoading ? 'Saving Log...' : 'Submit & Save Record'}
                 </button>
               </div>
             </form>
