@@ -97,37 +97,39 @@ Pit-fill → flow direction → flow accumulation → depressions → rank by up
 
 ---
 
-# TASK 6 — Trace 4–6 ESR command-area boundaries
-**Owner: ______ · ~1 hour**
+# TASK 6 — Trace 4–6 ESR command-area boundaries ⚠️ NEEDS MANUAL INPUT
+**Owner: Team member · ~1 hour · cannot be automated**
 
 Open `geojson.io`, put the ESR preview PNG beside it, draw a polygon over the satellite basemap following the boundary line. Pick central recognisable areas — Khamla, Dharampeth, Gandhibagh, Dhantoli.
 
-**Done when:** `esr_boundaries.geojson` with 4–6 polygons, each with an `esr_name` property, labelled approximate.
+**Done when:** `dataset/esr_boundaries.geojson` with 4–6 polygons, each with an `esr_name` property, labelled approximate.
+
+**Why manual:** Boundary tracing requires visual judgment comparing ESR maps against satellite imagery. AI cannot reliably do this — the maps are low-resolution and the boundaries are hand-drawn on the original PDFs. A team member must open `geojson.io` and draw each polygon.
 
 ---
 
-# TASK 7 — NMC ward / zone boundaries
-**Owner: ______ · ~20 min, may come up empty**
+# TASK 7 — NMC ward / zone boundaries ✅ DONE
+**Owner: Buffy (AI) · Completed 17 Aug**
 
 Look at nmcnagpur.gov.in · Maharashtra open data portals · ArcGIS Hub (search "Nagpur") · datameet and similar GitHub repos.
 
-**Done when:** file downloaded, **or** one line in the repo recording where you looked and that it isn't published. A confirmed "not available" is a real result — we say it on stage.
+**Done when:** ✅ Downloaded `dataset/nagpur_wards.geojson` — 42 ward polygons from BharatViz/DataMeet (WGS84). Properties include ward_name, ward_number, district, ULB code. Note: these are ward-level boundaries, not the 10 NMC zone boundaries. The 10 zone boundaries (Dharampeth, Dhantoli, Nehru Nagar, etc.) are not published as open GIS data. Ward boundaries serve as a reasonable fallback for zone lookup in the app.
 
 ---
 
-# TASK 8 — Email OCW
-**Owner: ______ · ~10 min**
+# TASK 8 — Email OCW ⚠️ DRAFT READY — NEEDS SENDING
+**Owner: Team member · ~10 min**
 
 Ask Orange City Water for water quality results broken down by zone or reservoir instead of the city-wide figure they publish.
 
 It might work. And being able to say *"we wrote to them on Saturday"* — then ending the pitch by asking the panel for exactly that — is worth real points with the municipal judges. Our whole argument is that this data should exist at a resolution people can use.
 
-**Done when:** sent, screenshot in the repo.
+**Done when:** ⚠️ Draft ready at `dataset/ocw_email_draft.md`. Team member must send the email (we cannot send email). Screenshot the sent email and add to repo.
 
 ---
 
-# TASK 9 — Everything on local disk
-**Owner: ______ · ~20 min**
+# TASK 9 — Everything on local disk ⚠️ NEEDS YOUR LAPTOPS
+**Owner: Team member · ~20 min · cannot be automated**
 
 Venue Wi-Fi with 40 teams on it will not be our friend.
 
@@ -135,8 +137,22 @@ DEM tiles · OSM export · all source PDFs · the dataset zip · map tiles for t
 
 **Done when:** one folder, complete, copied to **at least two laptops**.
 
+**What to copy:** `dataset/` folder (all CSVs, GeoJSONs, verdict_engine.py), `data/Vikisit Nagpur Hackathon/` (source PDFs, raw data), the built web app (once frontend is ready).
+
 ---
 
-## Priority if the day runs short
+## Current Status Summary
 
-~~Tasks 1, 2 and 3.~~ **All data tasks (1-4) are DONE.** Task 5 is cancelled (terrain too flat). The remaining work is entirely frontend application build. Focus on F1-F5 features.
+| Task | Status | Notes |
+|---|---|---|
+| 1. ESR supply hours | ✅ DONE | 749 zones classified |
+| 2. Outfall geocoding | ✅ DONE | 12 outfalls with coords |
+| 3. Flood locations | ✅ DONE | 31 locations compiled |
+| 4. DEM terrain check | ✅ DONE | Too flat, Task 5 cancelled |
+| 5. Flood model | ❌ CANCELLED | Terrain doesn't support it |
+| 6. ESR boundaries | ⚠️ MANUAL | Needs team member drawing |
+| 7. NMC ward boundaries | ✅ DONE | 42 wards downloaded |
+| 8. Email OCW | ⚠️ DRAFT | Team must send |
+| 9. Local disk prep | ⚠️ MANUAL | Needs team laptops |
+
+**All automatable data tasks are complete.** The remaining work is: (a) frontend application build, (b) 2 manual tasks (ESR boundaries, local disk), (c) 1 email to send.
