@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Nagpur Water — what is actually known</title>
+<style>
+  :root{
+    --paper:#efe9dd; --ink:#22201c; --ink-soft:#6b655c; --rule:#cfc6b6;
+    --water:#8fa6a8; --exceeds:#b23a26; --neutral:#5d6f77; --citizen:#7a5ea8;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{
+    background:var(--paper); color:var(--ink);
+    font:15px/1.5 "Iowan Old Style",Georgia,"Times New Roman",serif;
+    display:flex; overflow:hidden;
+    background-image:
+      radial-gradient(circle at 20% 30%, rgba(0,0,0,.020) 0 2px, transparent 2px),
+      radial-gradient(circle at 70% 60%, rgba(0,0,0,.016) 0 2px, transparent 2px);
+    background-size:7px 7px, 11px 11px;
+  }
+  #stage{flex:1; position:relative}
+  svg{width:100%; height:100%; display:block; cursor:crosshair}
+  .ww{fill:none; stroke:var(--water); stroke-linecap:round; stroke-linejoin:round}
+  .pt{cursor:pointer}
+  .pt:hover{stroke:var(--ink); stroke-width:1.4}
+
+  #titlebar{position:absolute; top:26px; left:30px; max-width:390px; pointer-events:none}
+  h1{font-size:27px; font-weight:600; letter-spacing:-.01em; line-height:1.15}
+  #sub{margin-top:8px; font-size:13.5px; color:var(--ink-soft); font-style:italic}
+  #count{margin-top:14px; font-size:12px; letter-spacing:.11em; text-transform:uppercase;
+         color:var(--ink-soft); font-family:ui-sans-serif,system-ui,sans-serif}
+
+  #panel{
+    width:378px; background:rgba(255,253,247,.93); border-left:1px solid var(--rule);
+    padding:26px 26px 40px; overflow-y:auto; backdrop-filter:blur(3px);
+  }
+  #panel h2{font-size:19px; font-weight:600; margin-bottom:3px}
+  .meta{font-size:11.5px; color:var(--ink-soft); letter-spacing:.05em;
+        text-transform:uppercase; font-family:ui-sans-serif,system-ui,sans-serif}
+  .verdict{margin:18px 0 6px; padding:13px 15px; border-left:3px solid var(--neutral);
+           background:rgba(0,0,0,.028); font-size:14.5px}
+  .verdict.ex{border-left-color:var(--exceeds)}
+  .verdict .tag{font-size:10.5px; letter-spacing:.14em; text-transform:uppercase;
+    font-family:ui-sans-serif,system-ui,sans-serif; color:var(--ink-soft); display:block; margin-bottom:6px}
+  .verdict.ex .tag{color:var(--exceeds)}
+  .action{margin:10px 0 0; padding:11px 13px; border:1px dashed var(--rule); font-size:13px}
+  .action b{display:block; font-size:10.5px; letter-spacing:.12em; text-transform:uppercase;
+    font-family:ui-sans-serif,system-ui,sans-serif; color:var(--ink-soft); margin-bottom:5px}
+  .noboil{color:var(--exceeds); font-weight:600}
+  table{width:100%; border-collapse:collapse; margin-top:16px; font-size:13.5px;
+        font-family:ui-sans-serif,system-ui,sans-serif}
+  td{padding:5px 0; border-bottom:1px solid var(--rule)}
+  td:last-child{text-align:right; font-variant-numeric:tabular-nums}
+  .src{margin-top:20px; font-size:11.5px; color:var(--ink-soft); line-height:1.55}
+  .hint{color:var(--ink-soft); font-style:italic; font-size:14px}
+  .dist{font-size:34px; line-height:1; margin:6px 0 2px; font-variant-numeric:tabular-nums}
+  .caveat{margin-top:16px; padding-top:14px; border-top:1px solid var(--rule);
+          font-size:13.5px; font-style:italic; color:var(--ink-soft)}
+  #tabs{display:flex; gap:0; margin:-6px -26px 18px; border-bottom:1px solid var(--rule)}
+  #tabs button{flex:1; background:none; border:none; border-bottom:2px solid transparent;
+    padding:10px 4px; font:inherit; font-size:11.5px; letter-spacing:.09em; text-transform:uppercase;
+    font-family:ui-sans-serif,system-ui,sans-serif; color:var(--ink-soft); cursor:pointer}
+  #tabs button.on{color:var(--ink); border-bottom-color:var(--exceeds)}
+  .bar{display:flex; align-items:center; gap:9px; margin:7px 0; font-size:13px;
+       font-family:ui-sans-serif,system-ui,sans-serif}
+  .bar span:first-child{flex:0 0 132px}
+  .bar .track{flex:1; height:9px; background:rgba(0,0,0,.07); position:relative}
+  .bar .fill{position:absolute; left:0; top:0; bottom:0; background:var(--exceeds); opacity:.82}
+  .bar .pct{flex:0 0 42px; text-align:right; font-variant-numeric:tabular-nums}
+  select{font:inherit; font-size:14px; padding:6px 8px; background:var(--paper);
+         border:1px solid var(--rule); color:var(--ink); width:100%; margin-top:6px}
+  .spark{width:100%; height:120px; margin-top:12px; display:block}
+  .spark .lim{stroke:var(--exceeds); stroke-dasharray:3 3; stroke-width:1}
+  .spark .ln{fill:none; stroke:var(--ink); stroke-width:1.6}
+  .spark .dot{fill:var(--ink)}
+  .spark text{font-size:9px; fill:var(--ink-soft); font-family:ui-sans-serif,sans-serif}
+  #legend{position:absolute; left:30px; bottom:26px; font-size:11.5px;
+    font-family:ui-sans-serif,system-ui,sans-serif; color:var(--ink-soft)}
+  #legend div{display:flex; align-items:center; gap:8px; margin-top:5px}
+  #legend i{width:9px; height:9px; border-radius:50%; display:inline-block}
+</style>
+</head>
+<body>
+<div id="stage">
+  <svg id="map"></svg>
+  <div id="titlebar">
+    <h1>What is actually known about Nagpur's water</h1>
+    <div id="sub">Every published measurement we could find. Nothing is interpolated.</div>
+    <div id="count">— loading —</div>
+  </div>
+  <div id="legend">
+    <div><i style="background:var(--exceeds)"></i> exceeds a statutory limit</div>
+    <div><i style="background:var(--neutral)"></i> no exceedance in what was tested</div>
+    <div><i style="background:none;border:1px solid var(--ink-soft)"></i> tested, not for drinking parameters</div>
+  </div>
+</div>
+<div id="panel">
+  <div id="tabs">
+    <button data-t="known" class="on">what's known</button>
+    <button data-t="crop">crop</button>
+    <button data-t="river">river</button>
+  </div>
+  <div id="body">
+  <h2>Nagpur</h2>
+  <div class="meta">click any mark, or anywhere on the map</div>
+  <p class="hint" style="margin-top:18px">
+    Each mark is one real water sample taken by a government agency.
+    The blue lines are the rivers, nalas and drains — the only geography shown,
+    because they are what carries the water.
+  </p>
+  <p class="hint" style="margin-top:12px">
+    Everything else on this map is empty because nobody has measured it.
+  </p>
+  </div>
+</div>
+
+<script type="module">
+import { loadStandards, drinkingVerdict, irrigationVerdict, cropLoss, cropAdvice,
+         haversineKm, PARAM_LABEL, ACTION } from './verdict.js';
+
+const [ways, points, std] = await Promise.all([
+  fetch('data/waterways.json').then(r=>r.json()),
+  fetch('data/points.json').then(r=>r.json()),
+  fetch('data/standards.json').then(r=>r.json())
+]);
+loadStandards(std);
+
+const svg = document.getElementById('map');
+const NS = 'http://www.w3.org/2000/svg';
+let W = svg.clientWidth, H = svg.clientHeight;
+
+const lats = points.map(p=>p.lat), lons = points.map(p=>p.lon);
+const B = { la0:Math.min(...lats)-.03, la1:Math.max(...lats)+.03,
+            lo0:Math.min(...lons)-.03, lo1:Math.max(...lons)+.03 };
+const pad = 60;
+function proj(lon, lat){
+  const sx=(W-2*pad)/(B.lo1-B.lo0), sy=(H-2*pad)/(B.la1-B.la0), s=Math.min(sx,sy);
+  return [ pad+(lon-B.lo0)*s + (W-2*pad-(B.lo1-B.lo0)*s)/2,
+           H-pad-(lat-B.la0)*s - (H-2*pad-(B.la1-B.la0)*s)/2 ];
+}
+const el=(n,a)=>{const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);return e;};
+
+function draw(){
+  W=svg.clientWidth; H=svg.clientHeight; svg.innerHTML='';
+  const gw=el('g'), gp=el('g');
+  for(const w of ways){
+    const d=w.p.map((c,i)=>(i?'L':'M')+proj(c[0],c[1]).map(v=>v.toFixed(1)).join(' ')).join(' ');
+    const big = w.w==='river';
+    gw.appendChild(el('path',{d, class:'ww',
+      'stroke-width': big?1.7:(w.w==='canal'?1.2:.85),
+      opacity: big?.85:(w.w==='drain'?.6:.45)}));
+  }
+  svg.appendChild(gw);
+  for(const p of points){
+    const [x,y]=proj(p.lon,p.lat);
+    const v=drinkingVerdict(p.v);
+    let fill='none', stroke='var(--ink-soft)', r=3.1;
+    if(v.state==='EXCEEDS'){fill='var(--exceeds)';stroke='var(--exceeds)';r=4.2;}
+    else if(v.state==='NO_EXCEEDANCE'){fill='var(--neutral)';stroke='var(--neutral)';}
+    if(p.kind==='stp'){fill='none';stroke='var(--ink-soft)';}
+    const node = p.kind==='river'
+      ? el('rect',{x:x-3,y:y-3,width:6,height:6,fill,stroke,'stroke-width':.9,class:'pt'})
+      : el('circle',{cx:x,cy:y,r,fill,stroke,'stroke-width':.9,class:'pt',
+                     'fill-opacity':p.kind==='groundwater'?.75:1});
+    node.addEventListener('click',e=>{e.stopPropagation();show(p);});
+    gp.appendChild(node);
+  }
+  svg.appendChild(gp);
+  document.getElementById('count').textContent =
+    points.length+' measurements · '+ways.length+' watercourses';
+}
+
+const panel=document.getElementById('body');
+let SEL=null, TAB='known';
+const esc=s=>String(s).replace(/[<>&]/g,c=>({'<':'&lt;','>':'&gt;','&':'&amp;'}[c]));
+
+function rows(p){
+  const order=['ph','ec','tds','th','no3','f','sar','do_mgl','cod_mgl',
+               'total_coliform_cfu100ml','faecal_coliform_cfu100ml'];
+  const unit={ec:'µS/cm',tds:'mg/L',th:'mg/L',no3:'mg/L',f:'mg/L',
+    do_mgl:'mg/L',cod_mgl:'mg/L',total_coliform_cfu100ml:'CFU/100mL',
+    faecal_coliform_cfu100ml:'CFU/100mL'};
+  return order.filter(k=>p.v[k]!=null).map(k=>
+    `<tr><td>${esc(PARAM_LABEL[k]||k.replace(/_/g,' '))}</td>
+     <td>${p.v[k].toLocaleString()} ${unit[k]||''}</td></tr>`).join('');
+}
+
+function show(p){ SEL=p; if(TAB==='crop') return showCrop(p); if(TAB==='river') return showRiver(p); showKnown(p); }
+function showKnown(p){
+  const v=drinkingVerdict(p.v), irr=irrigationVerdict(p.v);
+  let actions='';
+  for(const e of v.exceed){
+    const a=ACTION[e.param]; if(!a) continue;
+    actions+=`<div class="action"><b>${esc(e.param)}</b>${esc(a.means)}<br>
+      <span class="${a.boil===false?'noboil':''}">${esc(a.doThis)}</span></div>`;
+  }
+  panel.innerHTML=`
+    <h2>${esc(p.name)}</h2>
+    <div class="meta">${esc(p.area||'')} · ${esc(p.kind)}${p.aq?' · '+esc(p.aq)+' aquifer':''}</div>
+    <div class="verdict ${v.state==='EXCEEDS'?'ex':''}">
+      <span class="tag">${v.state.replace('_',' ')}</span>${esc(v.statement)}
+    </div>
+    ${actions}
+    ${irr.state!=='INSUFFICIENT'?`<div class="verdict">
+      <span class="tag">irrigation · CPCB Class E</span>
+      ${irr.state==='PASS'?'Meets the irrigation criteria tested.':'Fails: '+esc(irr.fails.join('; '))}
+    </div>`:''}
+    <table>${rows(p)}</table>
+    <div class="src">Source: ${esc(p.src)}<br>Sampling: ${esc(p.period)}<br><br>
+      Reported against IS 10500:2012 and CPCB Designated Best Use.
+      Guidance shown is public-health information, not medical advice.</div>`;
+}
+
+
+const NAG_CROPS=['Orange (santra / sweet orange)','Soybean','Sorghum (jowar)','Cotton',
+                 'Rice (paddy)','Wheat','Onion','Pepper / chilli'];
+function showCrop(p){
+  const ec=p.v.ec;
+  if(ec==null){ panel.innerHTML=`<h2>${esc(p.name)}</h2>
+    <div class="meta">${esc(p.area||'')}</div>
+    <div class="verdict"><span class="tag">not tested</span>
+    No electrical conductivity measured here, so no irrigation assessment is possible.</div>`; return; }
+  const irr=irrigationVerdict(p.v);
+  const list=NAG_CROPS.map(c=>cropLoss(ec,(std.crops.find(x=>x.crop===c)||{}))).filter(Boolean)
+             .sort((a,b)=>a.loss-b.loss);
+  panel.innerHTML=`
+    <h2>${esc(p.name)}</h2>
+    <div class="meta">groundwater at this location · EC ${ec.toLocaleString()} µS/cm</div>
+    <div class="verdict ${irr.state==='FAIL'?'ex':''}">
+      <span class="tag">irrigation · CPCB Class E</span>
+      ${irr.state==='FAIL'?'FAILS — '+esc(irr.fails.join('; ')):'Meets the criteria tested.'}
+    </div>
+    <div class="meta" style="margin:18px 0 8px">estimated yield loss, FAO-29</div>
+    ${list.map(c=>`<div class="bar"><span>${esc(c.crop.split(' (')[0])}</span>
+      <span class="track"><span class="fill" style="width:${c.loss}%"></span></span>
+      <span class="pct">${c.loss}%</span></div>`).join('')}
+    <div class="src">${esc(list[0].method)}<br>
+      This is the groundwater sampled at this point — not necessarily the water a
+      specific farm irrigates with.<br><br>Source: ${esc(p.src)} · ${esc(p.period)}</div>`;
+}
+
+function showRiver(p){
+  const which=(p.meta&&p.meta.river)||(p.name.split('-')[0]);
+  const s=std.rivers[which]||std.rivers['Nag'];
+  const name=std.rivers[which]?which:'Nag';
+  const W=326,H=120,PD=20, mx=Math.max(...s.map(d=>d.do),5);
+  const X=i=>PD+i*(W-2*PD)/(s.length-1), Y=v=>H-PD-(v/mx)*(H-2*PD);
+  const path=s.map((d,i)=>(i?'L':'M')+X(i).toFixed(1)+' '+Y(d.do).toFixed(1)).join(' ');
+  const worst=s.reduce((a,b)=>b.do<a.do?b:a);
+  panel.innerHTML=`
+    <h2>${esc(name)} river — oxygen</h2>
+    <div class="meta">${s.length} sites, source to end · CSIR-NEERI 2023-24</div>
+    <svg class="spark" viewBox="0 0 ${W} ${H}">
+      <line class="lim" x1="${PD}" x2="${W-PD}" y1="${Y(4)}" y2="${Y(4)}"/>
+      <text x="${W-PD}" y="${Y(4)-4}" text-anchor="end">CPCB Class D minimum · 4 mg/L</text>
+      <path class="ln" d="${path}"/>
+      ${s.map((d,i)=>`<circle class="dot" cx="${X(i).toFixed(1)}" cy="${Y(d.do).toFixed(1)}" r="2.6"/>`).join('')}
+      <text x="${PD}" y="${H-6}">${esc(s[0].code)}</text>
+      <text x="${W-PD}" y="${H-6}" text-anchor="end">${esc(s[s.length-1].code)}</text>
+    </svg>
+    <div class="verdict ex"><span class="tag">dissolved oxygen</span>
+      ${s[0].do} mg/L at the first site → <b>${s[s.length-1].do} mg/L</b> at the last.
+      ${s.filter(d=>d.do<4).length} of ${s.length} sites fall below the minimum for fish.</div>
+    <div class="action"><b>where it collapses</b>${esc(worst.code)} — ${esc(worst.detail||'')}</div>
+    <div class="src">Dissolved oxygen below 4 mg/L fails CPCB Class D (propagation of
+      wildlife and fisheries). Below 1 mg/L the water is effectively anoxic.<br><br>
+      Source: CSIR-NEERI for NMC · 2023-24</div>`;
+}
+
+document.getElementById('tabs').addEventListener('click',e=>{
+  const b=e.target.closest('button'); if(!b) return;
+  TAB=b.dataset.t;
+  [...document.querySelectorAll('#tabs button')].forEach(x=>x.classList.toggle('on',x===b));
+  if(TAB==='river'){ showRiver(SEL&&SEL.kind==='river'?SEL:{name:'Nag-1',meta:{river:'Nag'}}); }
+  else if(SEL) show(SEL);
+});
+
+svg.addEventListener('click',ev=>{
+  const r=svg.getBoundingClientRect();
+  const sx=(W-2*pad)/(B.lo1-B.lo0), sy=(H-2*pad)/(B.la1-B.la0), s=Math.min(sx,sy);
+  const lon=B.lo0+((ev.clientX-r.left)-pad-(W-2*pad-(B.lo1-B.lo0)*s)/2)/s;
+  const lat=B.la0+((H-pad-(ev.clientY-r.top)-(H-2*pad-(B.la1-B.la0)*s)/2))/s;
+  let best=null,bd=1e9;
+  for(const p of points){const d=haversineKm(lat,lon,p.lat,p.lon); if(d<bd){bd=d;best=p;}}
+  const v=drinkingVerdict(best.v);
+  panel.innerHTML=`
+    <h2>Nearest measurement to that point</h2>
+    <div class="dist">${bd.toFixed(1)} km</div>
+    <div class="meta">away · ${esc(best.name)}, ${esc(best.area||'')}</div>
+    <div class="verdict ${v.state==='EXCEEDS'?'ex':''}">
+      <span class="tag">${v.state.replace('_',' ')}</span>${esc(v.statement)}
+    </div>
+    <div class="caveat">This tells you about a sample ${bd.toFixed(1)} km from the point you
+      clicked. It does not tell you about the water there.</div>
+    <div class="src">Source: ${esc(best.src)} · ${esc(best.period)}</div>`;
+});
+
+draw(); addEventListener('resize',draw);
+</script>
+</body>
+</html>
