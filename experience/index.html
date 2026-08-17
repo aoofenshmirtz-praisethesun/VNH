@@ -91,7 +91,48 @@
       font-size: 11px;
       letter-spacing: .34em;
       line-height: 1.5;
+      pointer-events: auto;
+      cursor: pointer;
     }
+    .menu:hover { color: var(--red); }
+
+    /* ─── Menu overlay (6.4) ─── */
+    #menu-overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      z-index: 100;
+      pointer-events: auto;
+    }
+    #menu-overlay.open { display: flex; }
+    .menu-backdrop {
+      position: absolute; inset: 0;
+      background: rgba(253,252,245,0.88);
+      backdrop-filter: blur(4px);
+    }
+    .menu-list {
+      position: relative;
+      margin: auto;
+      list-style: none;
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: clamp(18px, 2.8vw, 36px);
+      letter-spacing: .12em;
+      text-align: center;
+      line-height: 2.4;
+    }
+    .menu-list li {
+      cursor: pointer;
+      color: var(--ink);
+      transition: color 0.2s;
+    }
+    .menu-list li:hover { color: var(--red); }
+    .menu-list li.active { color: var(--red); font-weight: bold; }
+    .menu-close {
+      position: absolute; top: 34px; right: 48px;
+      font-size: 24px; cursor: pointer; color: var(--ink);
+      font-family: 'EB Garamond', Georgia, serif;
+    }
+    .menu-close:hover { color: var(--red); }
 
     /* ─── Inset panel (nearest measurement, populated later) ─── */
     .inset {
@@ -105,18 +146,37 @@
       pointer-events: auto;
     }
     .inset-cap {
+      position: relative;
       text-align: center;
       font-size: 11px;
       letter-spacing: .24em;
       padding: 7px 0;
       border-bottom: 1px solid var(--rule);
     }
+    .inset-cap-close {
+      position: absolute;
+      right: 8px; top: 50%; transform: translateY(-50%);
+      cursor: pointer; font-size: 14px; color: var(--soft);
+      font-family: 'EB Garamond', Georgia, serif;
+      line-height: 1; display: none;
+    }
+    .inset-cap-close:hover { color: var(--red); }
     .inset-body {
       padding: 16px;
       font-size: 13px;
       line-height: 1.6;
       min-height: 60px;
     }
+
+    /* 6.2: Panel observation type */
+    .p-obs-type { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--soft); }
+    .p-obs-agency { font-size: 10px; color: var(--soft); margin-bottom: 4px; }
+    .p-sample { font-size: 11px; color: var(--soft); margin-bottom: 4px; }
+    .p-disclaimer { font-size: 10px; font-style: italic; color: var(--soft); margin-top: 4px; margin-bottom: 8px; }
+    .p-stp-info { font-size: 13px; color: var(--ink); margin-bottom: 8px; }
+    .p-no-data { font-style: italic; color: var(--soft); }
+    .p-hinge { font-style: italic; color: var(--ink); margin-top: 6px; }
+    .index li.no-data { color: var(--soft); opacity: 0.6; }
 
     /* ─── Bottom index bar ─── */
     .index {
@@ -187,13 +247,27 @@
       <span>21.3°</span><span>21.2°</span><span>21.1°</span><span>21.0°</span>
     </div>
 
-    <h1 class="title">NAG&nbsp;BASIN</h1>
-    <div class="menu">M E<br>N U</div>
+    <h1 class="title" id="main-title">NAG&nbsp;BASIN</h1>
+    <div class="menu" id="menu-btn">M E<br>N U</div>
 
     <aside class="inset">
-      <div class="inset-cap">NEAREST MEASUREMENT</div>
+      <div class="inset-cap" id="panel-cap">NEAREST MEASUREMENT<span class="inset-cap-close" id="panel-close">×</span></div>
       <div class="inset-body" id="panel-body"><!-- populated by Step 5 --></div>
     </aside>
+
+    <!-- 6.4: Menu overlay -->
+    <div id="menu-overlay">
+      <div class="menu-backdrop"></div>
+      <div class="menu-close" id="menu-close-btn">×</div>
+      <ul class="menu-list" id="menu-list">
+        <li data-filter="all" class="active">All measurements</li>
+        <li data-filter="drinking">Drinking sources</li>
+        <li data-filter="rivers">Rivers and lakes</li>
+        <li data-filter="health">Health exceedances</li>
+        <li data-filter="unmeasured">What is not measured</li>
+        <li data-filter="treatment">Treatment</li>
+      </ul>
+    </div>
 
     <div id="lake-labels"></div>
 
@@ -201,10 +275,16 @@
       <div class="index-scale">
         <i>1</i><i>2</i><i>3</i><i>4</i><i>5</i><i>6</i><i>7</i>
       </div>
-      <ol>
-        <li>Nag</li><li>Pivli</li><li>Pora</li><li>Kanhan</li>
-        <li>Kolar</li><li>Vena</li><li>Pohara</li>
-        <li class="go">City wells →</li>
+      <ol id="nav-rail">
+        <li data-anchor="nag">Nag</li>
+        <li data-anchor="pivli">Pivli</li>
+        <li data-anchor="pora">Pora</li>
+        <li data-anchor="kanhan" class="no-data">Kanhan</li>
+        <li data-anchor="kolar" class="no-data">Kolar</li>
+        <li data-anchor="vena" class="no-data">Vena</li>
+        <li data-anchor="citywells" class="go">City wells</li>
+        <li data-anchor="lakes">Lakes</li>
+        <li data-anchor="treatment">Treatment</li>
       </ol>
     </nav>
   </div>

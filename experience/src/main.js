@@ -99,23 +99,85 @@ const lookTarget = new THREE.Vector3(0, 0, 0);
 const vel = new THREE.Vector3();
 const STIFF = 3.2, DAMP = 0.86;
 
-// Geographic anchors for camera
+// 6.3: Geographic anchors — from spec, with real extents in km
 const ANCHORS = {
-  overview: { lat: 21.139, lon: 79.134 },
-  source:   { lat: 21.126, lon: 79.043 },
-  corridor: { lat: 21.146, lon: 79.099 },
-  outfall:  { lat: 21.138, lon: 79.159 }
+  overview:   { lat: 21.139, lon: 79.134, w: 54.7, h: 54.7, label: 'NAG\u00a0BASIN' },
+  nag:        { lat: 21.1330, lon: 79.0842, w: 8.8, h: 1.9, label: 'NAG\u00a0RIVER', noData: false },
+  pivli:      { lat: 21.1802, lon: 79.0782, w: 13.5, h: 4.3, label: 'PIVLI\u00a0RIVER', noData: false },
+  pora:       { lat: 21.0892, lon: 79.0902, w: 7.0, h: 3.3, label: 'PORA\u00a0RIVER', noData: false },
+  kanhan:     { lat: 21.1892, lon: 79.2787, w: 24.9, h: 17.6, label: 'KANHAN\u00a0RIVER', noData: true },
+  kolar:      { lat: 21.2875, lon: 79.0509, w: 22.2, h: 8.7, label: 'KOLAR\u00a0RIVER', noData: true },
+  vena:       { lat: 21.0500, lon: 78.9389, w: 14.3, h: 21.8, label: 'VENA\u00a0RIVER', noData: true },
+  citywells:  { lat: 21.1351, lon: 79.0911, w: 14.5, h: 14.8, label: 'CITY\u00a0WELLS', noData: false },
+  lakes:      { lat: 21.1255, lon: 79.0430, w: 8, h: 8, label: 'LAKES', noData: false },
+  treatment:  { lat: 21.1351, lon: 79.0822, w: 14, h: 14, label: 'TREATMENT', noData: false },
 };
 
-window.gotoAnchor = function(key) {
+// 6.3: Derive altitude from extent
+const UNITS_PER_KM = FIT / 54.7;
+const FRAME = 2 * Math.tan(45 * Math.PI / 360); // at fov 45
+
+function gotoAnchor(key) {
   const a = ANCHORS[key];
   if (!a) return;
   const [x, z] = project(a.lon, a.lat);
-  
-  // Animate desired pos and tgt
-  gsap.to(desired.tgt, { x, y: 0, z, duration: 2.5, ease: 'power2.out' });
-  gsap.to(desired.pos, { x: x, y: 25, z: z + 20, duration: 2.0, ease: 'power3.inOut' });
-};
+  const alt = Math.max(18, (Math.max(a.w, a.h) * UNITS_PER_KM / FRAME) * 1.25);
+  const pitch = THREE.MathUtils.degToRad(58);
+
+  // Disable controls during transition, re-enable on complete
+  controls.enabled = false;
+
+  gsap.to(desired.tgt, { x, y: 0, z, duration: 2.6, ease: 'power2.inOut' });
+  const startX = desired.pos.x;
+  const startY = desired.pos.y;
+  const startZ = desired.pos.z;
+  const endX = x + alt * 0.18;
+  const endY = alt * Math.sin(pitch);
+  const endZ = z + alt * Math.cos(pitch);
+
+  const dx = endX - startX;
+  const dz = endZ - startZ;
+  const dist = Math.sqrt(dx * dx + dz * dz) || 1; // avoid /0
+  const bow = dist * 0.3; // bow magnitude
+  const nx = -dz / dist;
+  const nz = dx / dist;
+
+  const proxy = { t: 0 };
+  gsap.to(proxy, {
+    t: 1,
+    duration: 2.9,
+    ease: 'power3.inOut',
+    onUpdate: () => {
+      const lx = startX + dx * proxy.t;
+      const lz = startZ + dz * proxy.t;
+      const ly = startY + (endY - startY) * proxy.t;
+      const arc = Math.sin(proxy.t * Math.PI) * bow;
+      desired.pos.set(lx + nx * arc, ly, lz + nz * arc);
+    },
+    onComplete: () => { controls.enabled = true; }
+  });
+
+  // Title crossfade
+  const titleEl = document.getElementById('main-title');
+  if (titleEl) {
+    gsap.to(titleEl, { opacity: 0, duration: 0.4, onComplete: () => {
+      titleEl.textContent = a.label;
+      gsap.to(titleEl, { opacity: 1, duration: 0.6, delay: 0.3 });
+    }});
+  }
+
+  // If this anchor has no data, show that in the panel on arrival
+  if (a.noData) {
+    setTimeout(() => {
+      const panel = document.getElementById('panel-body');
+      if (panel) {
+        panel.dataset.state = 'filled';
+        panel.innerHTML = `<div class="p-no-data">No published measurement exists on this watercourse.</div>`;
+      }
+    }, 2800);
+  }
+}
+window.gotoAnchor = gotoAnchor;
 
 // ─── Flat Plane — fading edge, no hard border for Sobel ───
 const planeMat = new THREE.ShaderMaterial({
@@ -215,8 +277,17 @@ async function loadWaterBodies() {
   const res = await fetch('/data/waterbodies.json');
   const bodies = await res.json();
 
+  // 6.5: Lake wash — transparent, paper grain reads through
   const bodyMat = new THREE.MeshBasicMaterial({
     color: new THREE.Color('#b9c8c8'),
+    transparent: true,
+    opacity: 0.55,
+    fog: true,
+  });
+  const bodyMatLarge = new THREE.MeshBasicMaterial({
+    color: new THREE.Color('#aec0c0'),
+    transparent: true,
+    opacity: 0.55,
     fog: true,
   });
 
@@ -230,7 +301,10 @@ async function loadWaterBodies() {
     });
 
     const shape = new THREE.Shape(pts2d);
-    const mesh = new THREE.Mesh(new THREE.ShapeGeometry(shape), bodyMat);
+    // 6.5: Vary fill by area — larger bodies get deeper colour
+    const area = Math.abs(THREE.ShapeUtils.area(pts2d));
+    const mat = area > 2.0 ? bodyMatLarge : bodyMat;
+    const mesh = new THREE.Mesh(new THREE.ShapeGeometry(shape), mat);
     mesh.rotation.x = Math.PI / 2;
     mesh.position.y = 0.01;
     mesh.renderOrder = 1;
@@ -474,15 +548,83 @@ function sizeMarks() {
     m.scale.setScalar(s);
     if (m.userData.proxy) m.userData.proxy.scale.setScalar(s * 1.7);
     if (m.userData.hoverProxy) m.userData.hoverProxy.scale.setScalar(s * 1.9);
+    if (m.userData.selProxy) m.userData.selProxy.scale.setScalar(s * 2.1);
   }
 }
 
-// ─── 5.6: Raycaster hover ───
+// ─── 6.1: Stable selection + raycaster hover ───
 const ray = new THREE.Raycaster();
 ray.layers.set(0);
-let hovered = null;
-
+let hovered  = null;   // transient, follows pointer
+let selected = null;   // persistent, only click changes it
 let modeNearMe = false;
+let ptr = null, lastPick = 0;
+
+// 6.2: Observation type lookup
+const OBSERVATION = {
+  groundwater: { type: 'GROUNDWATER',       verb: 'SAMPLED / COMPILED' },
+  citywell:    { type: 'CITY WELL',          verb: 'SAMPLED' },
+  river:       { type: 'RIVER OBSERVATION',  verb: 'SAMPLED' },
+  lake:        { type: 'LAKE OBSERVATION',   verb: 'ASSESSED' },
+  stp:         { type: 'INFRASTRUCTURE',     verb: 'RECORD' },
+};
+
+function pickAt(e) {
+  const coords = e.clientX !== undefined ? e : { clientX: e.x, clientY: e.y };
+  ray.setFromCamera(new THREE.Vector2(
+    (coords.clientX / innerWidth) * 2 - 1, -(coords.clientY / innerHeight) * 2 + 1), camera);
+  const hit = ray.intersectObjects(pickables, false)[0];
+  return hit?.object ?? null;
+}
+
+function setHovered(next) {
+  if (next === hovered) return;
+  if (hovered && hovered.userData.hoverProxy) {
+    scene.remove(hovered.userData.hoverProxy);
+    hovered.userData.hoverProxy = null;
+  }
+  hovered = next;
+  if (hovered && hovered.userData.point) {
+    const hp = new THREE.Mesh(hovered.geometry, HL_HOVER);
+    hp.position.copy(hovered.position);
+    hp.rotation.copy(hovered.rotation);
+    hp.layers.set(LAYER_HL);
+    scene.add(hp);
+    hovered.userData.hoverProxy = hp;
+  }
+}
+
+const geoSelRing = new THREE.RingGeometry(0.38, 0.42, 32);
+const selRingMat = new THREE.MeshBasicMaterial({
+  color: new THREE.Color('#22201c'), transparent: true, opacity: 0.7, fog: false
+});
+
+function setSelected(next) {
+  if (selected && selected.userData.selProxy) {
+    scene.remove(selected.userData.selProxy);
+    selected.userData.selProxy = null;
+  }
+  selected = next;
+  const closeBtn = document.getElementById('panel-close');
+  if (selected && selected.userData.point) {
+    const sp = new THREE.Mesh(geoSelRing, selRingMat);
+    sp.position.copy(selected.position);
+    sp.rotation.copy(selected.rotation);
+    sp.layers.set(0); // visible in main pass, not highlight
+    scene.add(sp);
+    selected.userData.selProxy = sp;
+    if (closeBtn) closeBtn.style.display = 'inline';
+  } else {
+    if (closeBtn) closeBtn.style.display = 'none';
+  }
+  refreshPanel();
+}
+
+function refreshPanel() {
+  const shown = selected ?? hovered;
+  if (shown?.userData.point) fillPanel(shown.userData.point, shown.userData.verdict);
+  else showDefaultPanel();
+}
 
 function fillPanel(p, v) {
   const panel = document.getElementById('panel-body');
@@ -491,25 +633,48 @@ function fillPanel(p, v) {
   modeNearMe = false;
   renderer.domElement.style.cursor = 'auto';
 
+  const obs = OBSERVATION[p.kind] || { type: 'OBSERVATION', verb: 'RECORDED' };
   const isLake = p.meta && p.meta.standard && p.meta.standard.includes('CPCB');
-  let html = `<div class="p-id">${p.id}</div>`;
-  html += `<div class="p-area">${p.area || p.name || ''}</div>`;
+  const isSTP = p.kind === 'stp';
+
+  let html = `<div class="p-obs-type">${obs.type}</div>`;
+  html += `<div class="p-obs-agency">${p.src || ''}</div>`;
   html += `<div class="p-rule"></div>`;
-  if (isLake) {
+  html += `<div class="p-id">${p.id}</div>`;
+  html += `<div class="p-area">${p.area || p.name || ''}</div>`;
+  html += `<div class="p-sample">${obs.verb} &nbsp; ${p.period || ''}</div>`;
+  html += `<div class="p-disclaimer">A published sample from this location and period — not a live reading.</div>`;
+  html += `<div class="p-rule"></div>`;
+
+  if (isSTP) {
+    const cap = p.meta?.capacity_mld || '';
+    const tech = p.meta?.technology || '';
+    html += `<div class="p-stp-info">${cap ? cap + ' MLD' : ''} ${tech ? '· ' + tech : ''} · operational</div>`;
+    html += `<div class="p-no-data">No water-quality measurement is published for this location.</div>`;
+  } else if (isLake) {
     html += `<div class="p-std">Assessed against CPCB Designated Best Use Class B (outdoor bathing). Not a drinking-water source; not assessed against IS 10500.</div>`;
+    html += `<div class="p-verdict">${v.statement || ''}</div>`;
+    // Ambazari hinge
+    if (p.id && (p.id.toLowerCase().includes('ambazari') || (p.name && p.name.toLowerCase().includes('ambazari')))) {
+      html += `<div class="p-hinge">The Nag River rises here.</div>`;
+    }
+  } else {
+    html += `<div class="p-verdict">${v.statement || ''}</div>`;
   }
-  html += `<div class="p-verdict">${v.statement || ''}</div>`;
-  // ACTION guidance for health-relevant exceedances
-  if (v.exceed && v.exceed.length) {
+
+  // ACTION guidance for exceedances
+  if (v.exceed && v.exceed.length && !isSTP) {
     html += `<div class="p-rule"></div><div class="p-action-title">WHAT THIS MEANS</div>`;
-    const ACTION = { 'Nitrate (as NO3)': 'Risk is to bottle-fed infants. Boiling does NOT help — it concentrates nitrate.',
+    const ACTION = {
+      'Nitrate (as NO3)': 'Risk is to bottle-fed infants. Boiling does NOT help — it concentrates nitrate.',
       'Fluoride (as F)': 'Long-term exposure causes fluorosis. Boiling does not remove fluoride.',
       'Lead (as Pb)': 'Lead accumulates; risk to children and pregnancy. Boiling does NOT remove lead — it concentrates it.',
       'Arsenic (as As)': 'Long-term exposure is carcinogenic. Boiling does not remove arsenic.',
       'Total Coliform': 'Indicates faecal contamination. Boiling is effective — bring to a rolling boil.',
       'E. coli / Thermotolerant coliform': 'Direct indicator of faecal contamination. Boiling is effective.',
       'Total Hardness (as CaCO3)': 'Affects taste, scaling. Not an acute health risk at these levels.',
-      'Total Dissolved Solids': 'High mineral content — affects taste. Not an acute health risk.' };
+      'Total Dissolved Solids': 'High mineral content — affects taste. Not an acute health risk.',
+    };
     const seen = new Set();
     for (const e of v.exceed) {
       if (seen.has(e.param)) continue; seen.add(e.param);
@@ -517,20 +682,22 @@ function fillPanel(p, v) {
       if (act) html += `<div class="p-action">${act}</div>`;
     }
   }
+
   html += `<div class="p-rule"></div>`;
   html += `<div class="p-source">SOURCE &nbsp; ${p.src || '—'}</div>`;
   html += `<div class="p-source">SAMPLE &nbsp; ${p.period || '—'}</div>`;
+  if (v.nTested) html += `<div class="p-source">${v.nTested} parameters tested</div>`;
   panel.innerHTML = html;
 }
 
-function clearPanel() {
+function showDefaultPanel() {
   const panel = document.getElementById('panel-body');
   if (!panel || panel.dataset.state === 'empty' || panel.dataset.state === 'waiting') return;
   panel.dataset.state = 'empty';
   panel.innerHTML = `
     <div style="text-align: center; margin-top: 20px;">
       <button id="btn-near-me" style="font-family:'EB Garamond', serif; font-size: 13px; padding: 6px 12px; cursor: pointer; border: 1px solid var(--rule); background: transparent; color: var(--ink);">
-        Show me what's measured near me
+        Show me what\u2019s measured near me
       </button>
     </div>
   `;
@@ -542,88 +709,122 @@ function clearPanel() {
   });
 }
 
+// 6.1: Pointer events — pointermove only sets hovered, pointerdown sets selected
 renderer.domElement.addEventListener('pointermove', e => {
-  if (modeNearMe) return; // Don't highlight points while waiting for click
-  ray.setFromCamera(new THREE.Vector2(
-    (e.clientX / innerWidth) * 2 - 1, -(e.clientY / innerHeight) * 2 + 1), camera);
-  const hit = ray.intersectObjects(pickables, false)[0];
-  const next = hit?.object ?? null;
-  if (next === hovered) return;
-  
-  if (hovered && hovered.userData.hoverProxy) {
-    scene.remove(hovered.userData.hoverProxy);
-    hovered.userData.hoverProxy = null;
-  }
-  
-  hovered = next;
-  if (hovered && hovered.userData.point) {
-    const hp = new THREE.Mesh(hovered.geometry, HL_HOVER);
-    hp.position.copy(hovered.position);
-    hp.rotation.copy(hovered.rotation);
-    hp.scale.copy(hovered.scale).multiplyScalar(1.9 / 1.0); // since hovered.scale already scaled by sizeMarks
-    hp.layers.set(LAYER_HL);
-    scene.add(hp);
-    hovered.userData.hoverProxy = hp;
-    
-    fillPanel(hovered.userData.point, hovered.userData.verdict);
-  } else {
-    clearPanel();
-  }
+  ptr = { x: e.clientX, y: e.clientY };
+  if (modeNearMe) return;
 });
 
 renderer.domElement.addEventListener('pointerdown', e => {
-  if (!modeNearMe) return;
-  ray.setFromCamera(new THREE.Vector2(
-    (e.clientX / innerWidth) * 2 - 1, -(e.clientY / innerHeight) * 2 + 1), camera);
-  
-  const hit = ray.intersectObject(plane)[0];
-  if (!hit) return;
+  if (modeNearMe) {
+    // Nearest-measurement branch
+    ray.setFromCamera(new THREE.Vector2(
+      (e.clientX / innerWidth) * 2 - 1, -(e.clientY / innerHeight) * 2 + 1), camera);
+    const hit = ray.intersectObject(plane)[0];
+    if (!hit) return;
+    modeNearMe = false;
+    renderer.domElement.style.cursor = 'auto';
+    const pt = hit.point;
+    const [lon, lat] = unproject(pt.x, pt.z);
+    let minD = Infinity, nearest = null;
+    for (const m of markMeshes) {
+      if (!m.userData.point) continue;
+      const p = m.userData.point;
+      const d = haversineKm(lat, lon, p.lat, p.lon);
+      if (d < minD) { minD = d; nearest = m; }
+    }
+    if (nearest) {
+      const worldDist = Math.sqrt((nearest.position.x - pt.x)**2 + (nearest.position.z - pt.z)**2);
+      const g = new THREE.RingGeometry(worldDist - 0.05, worldDist + 0.05, 64);
+      const m = new THREE.MeshBasicMaterial({ color: new THREE.Color('#b23a26'), transparent: true, opacity: 0.8, fog: false });
+      const ring = new THREE.Mesh(g, m);
+      ring.rotation.x = -Math.PI / 2;
+      ring.position.set(pt.x, 0.015, pt.z);
+      ring.renderOrder = 4;
+      scene.add(ring);
+      const panel = document.getElementById('panel-body');
+      if (panel) {
+        panel.dataset.state = 'waiting';
+        panel.innerHTML = `<div style="text-align: center; margin-top: 20px; color: var(--ink);">Nearest measurement is <b>${minD.toFixed(1)} km</b> away.</div>`;
+      }
+      gsap.to(m, { opacity: 0, duration: 2, delay: 4, onComplete: () => {
+        scene.remove(ring); g.dispose(); m.dispose();
+        const panel = document.getElementById('panel-body');
+        if (panel) { panel.dataset.state = 'x'; showDefaultPanel(); }
+      }});
+    }
+    return;
+  }
 
-  modeNearMe = false;
-  renderer.domElement.style.cursor = 'auto';
+  // 6.1: Click sets selection
+  const hit = pickAt(e);
+  setSelected(hit);
+});
 
-  const pt = hit.point;
-  const [lon, lat] = unproject(pt.x, pt.z);
+// 6.1: Panel close button
+document.getElementById('panel-close')?.addEventListener('click', () => setSelected(null));
 
-  let minD = Infinity;
-  let nearest = null;
+// ─── 6.3: Navigation rail wiring ───
+document.getElementById('nav-rail')?.addEventListener('click', e => {
+  const li = e.target.closest('li[data-anchor]');
+  if (!li) return;
+  gotoAnchor(li.dataset.anchor);
+});
+
+// ─── 6.4: Menu layer state ───
+let currentFilter = 'all';
+
+function applyFilter(filter) {
+  currentFilter = filter;
   for (const m of markMeshes) {
-    if (!m.userData.point) continue;
-    const p = m.userData.point;
-    const d = haversineKm(lat, lon, p.lat, p.lon);
-    if (d < minD) {
-      minD = d;
-      nearest = m;
+    const k = m.userData.kind;
+    const isHealthExceed = m.userData.proxy != null;
+    let vis = true, opa = 1;
+    switch (filter) {
+      case 'all':       vis = true; break;
+      case 'drinking':  vis = (k === 'groundwater' || k === 'citywell'); break;
+      case 'rivers':    vis = (k === 'river' || k === 'lake'); break;
+      case 'health':    vis = isHealthExceed; opa = isHealthExceed ? 1 : 0.15; vis = true; break;
+      case 'unmeasured': vis = false; break;
+      case 'treatment': vis = (k === 'stp'); break;
     }
+    m.visible = vis;
+    if (m.material.opacity !== undefined) m.material.opacity = opa * ({ groundwater: 0.35, river: 0.60, citywell: 0.85, stp: 0.45 }[k] || 0.5);
+    if (m.userData.proxy) m.userData.proxy.visible = vis && isHealthExceed;
   }
-
-  if (nearest) {
-    const worldDist = Math.sqrt((nearest.position.x - pt.x)**2 + (nearest.position.z - pt.z)**2);
-    
-    const g = new THREE.RingGeometry(worldDist - 0.05, worldDist + 0.05, 64);
-    const m = new THREE.MeshBasicMaterial({ color: new THREE.Color('#b23a26'), transparent: true, opacity: 0.8, fog: false });
-    const ring = new THREE.Mesh(g, m);
-    ring.rotation.x = -Math.PI / 2;
-    ring.position.set(pt.x, 0.015, pt.z);
-    ring.renderOrder = 4;
-    scene.add(ring);
-
-    const panel = document.getElementById('panel-body');
-    if (panel) {
-      panel.dataset.state = 'waiting';
-      panel.innerHTML = `<div style="text-align: center; margin-top: 20px; color: var(--ink);">
-        Nearest measurement is <b>${minD.toFixed(1)} km</b> away.<br><br>
-        <span style="font-style: italic; font-size: 11px; color: var(--soft);">Hover over a point to read its verdict.</span>
-      </div>`;
-    }
-
-    gsap.to(m, { opacity: 0, duration: 2, delay: 4, onComplete: () => {
-      scene.remove(ring);
-      g.dispose();
-      m.dispose();
-      clearPanel();
-    }});
+  // Navigate to treatment centroid
+  if (filter === 'treatment') gotoAnchor('treatment');
+  if (filter === 'unmeasured') {
+    gotoAnchor('overview');
+    // Trigger nearest measurement from centre
+    setTimeout(() => {
+      modeNearMe = true;
+      const panel = document.getElementById('panel-body');
+      if (panel) {
+        panel.dataset.state = 'waiting';
+        panel.innerHTML = `<div style="text-align: center; font-style: italic; margin-top: 20px; color: var(--soft);">Click anywhere on the map to see how far the nearest measurement is...</div>`;
+      }
+      renderer.domElement.style.cursor = 'crosshair';
+    }, 3000);
   }
+}
+
+document.getElementById('menu-btn')?.addEventListener('click', () => {
+  document.getElementById('menu-overlay')?.classList.add('open');
+});
+document.getElementById('menu-close-btn')?.addEventListener('click', () => {
+  document.getElementById('menu-overlay')?.classList.remove('open');
+});
+document.querySelector('.menu-backdrop')?.addEventListener('click', () => {
+  document.getElementById('menu-overlay')?.classList.remove('open');
+});
+document.getElementById('menu-list')?.addEventListener('click', e => {
+  const li = e.target.closest('li[data-filter]');
+  if (!li) return;
+  document.querySelectorAll('#menu-list li').forEach(l => l.classList.remove('active'));
+  li.classList.add('active');
+  applyFilter(li.dataset.filter);
+  document.getElementById('menu-overlay')?.classList.remove('open');
 });
 
 // ─── 5.7: Lake labels ───
@@ -690,6 +891,13 @@ function animate() {
   // 5.7: Lake labels
   updateLakeLabels();
 
+  // 6.1: Throttled re-raycast (~8 Hz) to fix stale hover during camera drift
+  if (ptr && !modeNearMe && t - lastPick > 0.12) {
+    lastPick = t;
+    const next = pickAt(ptr);
+    if (next !== hovered) { setHovered(next); refreshPanel(); }
+  }
+
   const savedBg = scene.background;
 
   // 1 — colour pass
@@ -729,10 +937,10 @@ animate();
 fetch('/data/points.json').then(r => r.json()).then(setupLakeLabels);
 
 // Initialize panel to show the button
-clearPanel();
+showDefaultPanel();
 
 // ─── Exports for later steps ───
 export { scene, camera, renderer, controls, plane, planeMat, compositeMat,
          rtDiffuse, rtNormal, rtHighlight, normalMat, noiseTex,
          BG, SHEET, INK, NORMAL_CLEAR, S, cLon, cLat, kx, FIT, lineMats, PEN, B,
-         W, H, dpr, project };
+         W, H, dpr, project, gotoAnchor, ANCHORS, markMeshes, pickables };
