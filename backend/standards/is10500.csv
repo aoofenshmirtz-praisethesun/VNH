@@ -1,0 +1,12 @@
+parameter,unit,acceptable_limit,permissible_limit_no_alt_source,relaxation_allowed,notes
+pH,,6.5-8.5,6.5-8.5,no,Range limit
+Total Dissolved Solids,mg/L,500,2000,yes,
+Total Hardness (as CaCO3),mg/L,200,600,yes,
+Calcium (as Ca),mg/L,75,200,yes,
+Magnesium (as Mg),mg/L,30,100,yes,
+Chloride (as Cl),mg/L,250,1000,yes,
+Sulphate (as SO4),mg/L,200,400,yes,
+Nitrate (as NO3),mg/L,45,45,no,
+Fluoride (as F),mg/L,1.0,1.5,yes,
+Total Coliform,MPN/100ml or cfu/100ml,0,0,no,Zero tolerance
+E. coli / Thermotolerant coliform,MPN/100ml or cfu/100ml,0,0,no,Zero tolerance

@@ -1,0 +1,1101 @@
+{
+ "type": "FeatureCollection",
+ "features": [
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     79.04433333333333,
+     21.125
+    ]
+   },
+   "properties": {
+    "code": "Nag-1",
+    "river": "Nag",
+    "detail": "Initial sampling point (Ambazari lake)",
+    "total_coliform_cfu100ml": 600000.0,
+    "faecal_coliform_cfu100ml": 280000.0,
+    "do_mgl": 3.67,
+    "cod_mgl": null,
+    "tkn_mgl": 12.9,
+    "phosphate_mgl": 1.51,
+    "ph": 7.14,
+    "ec_mscm": 0.465,
+    "tds_mgl": 232.0,
+    "nitrate_mgl": 0.15,
+    "cpcb_class_d_do_ok": false,
+    "source_type": "river"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     79.04925,
+     21.129833333333334
+    ]
+   },
+   "properties": {
+    "code": "Nag-2",
+    "river": "Nag",
+    "detail": "Flow point-2 (NIT swimming pool)",
+    "total_coliform_cfu100ml": 440000.0,
+    "faecal_coliform_cfu100ml": 280000.0,
+    "do_mgl": 3.63,
+    "cod_mgl": 30.95,
+    "tkn_mgl": 14.0,
+    "phosphate_mgl": 1.55,
+    "ph": 7.59,
+    "ec_mscm": 0.464,
+    "tds_mgl": 232.0,
+    "nitrate_mgl": 0.2,
+    "cpcb_class_d_do_ok": false,
+    "source_type": "river"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     79.05088888888889,
+     21.12986111111111
+    ]
+   },
+   "properties": {
+    "code": "Nag-3",
+    "river": "Nag",
+    "detail": "Flow point-3 (VNIT Campus)",
+    "total_coliform_cfu100ml": 540000.0,
+    "faecal_coliform_cfu100ml": 300000.0,
+    "do_mgl": 3.88,
+    "cod_mgl": 18.57,
+    "tkn_mgl": 7.7,
+    "phosphate_mgl": 3.49,
+    "ph": 7.9,
+    "ec_mscm": 0.468,
+    "tds_mgl": 234.0,
+    "nitrate_mgl": 0.25,
+    "cpcb_class_d_do_ok": false,
+    "source_type": "river"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     79.0563611111111,
+     21.131444444444444
+    ]
+   },
+   "properties": {
+    "code": "Nag-4",
+    "river": "Nag",
+    "detail": "NIT cover point near shape up Gym",
+    "total_coliform_cfu100ml": 280000.0,
+    "faecal_coliform_cfu100ml": 100000.0,
+    "do_mgl": 3.81,
+    "cod_mgl": 4.76,
+    "tkn_mgl": 8.75,
+    "phosphate_mgl": 6.47,
+    "ph": 7.78,
+    "ec_mscm": 0.499,
+    "tds_mgl": 250.0,
+    "nitrate_mgl": 0.24,
+    "cpcb_class_d_do_ok": false,
+    "source_type": "river"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     79.08286111111111,
+     21.140416666666667
+    ]
+   },
+   "properties": {
+    "code": "Nag-5",
+    "river": "Nag",
+    "detail": "Drain mix behind Yashwant stadium (Sitabuldi bridge)",
+    "total_coliform_cfu100ml": 220000.0,
+    "faecal_coliform_cfu100ml": 120000.0,
+    "do_mgl": 1.9,
+    "cod_mgl": 50.95,
+    "tkn_mgl": 10.8,
+    "phosphate_mgl": 8.16,
+    "ph": 7.63,
+    "ec_mscm": 0.603,
+    "tds_mgl": 302.0,
+    "nitrate_mgl": 0.06,
+    "cpcb_class_d_do_ok": false,
+    "source_type": "river"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     79.08885555555555,
+     21.137433333333334
+    ]
+   },
+   "properties": {
+    "code": "Nag-6",
+    "river": "Nag",
+    "detail": "Drain mix at Mokshdham (Near NMC STP)",
+    "total_coliform_cfu100ml": 140000.0,
+    "faecal_coliform_cfu100ml": 80000.0,
+    "do_mgl": 1.2,
+    "cod_mgl": 46.66,
+    "tkn_mgl": 5.95,
+    "phosphate_mgl": 4.22,
+    "ph": 7.73,
+    "ec_mscm": 0.613,
+    "tds_mgl": 306.0,
+    "nitrate_mgl": 0.02,
+    "cpcb_class_d_do_ok": false,
+    "source_type": "river"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     79.09555555555555,
+     21.137333333333334
+    ]
+   },
+   "properties": {
+    "code": "Nag-7",
+    "river": "Nag",
+    "detail": "Ashirwad talkies, great Nag road, Baidhyanath square Rambagh)",
+    "total_coliform_cfu100ml": 300000.0,
+    "faecal_coliform_cfu100ml": 200000.0,
+    "do_mgl": 1.02,
+    "cod_mgl": 36.19,
+    "tkn_mgl": 5.95,
+    "phosphate_mgl": 6.03,
+    "ph": 7.75,
+    "ec_mscm": 0.62,
+    "tds_mgl": 310.0,
+    "nitrate_mgl": 0.01,
+    "cpcb_class_d_do_ok": false,
+    "source_type": "river"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     79.11952777777778,
+     21.140361111111112
+    ]
+   },
+   "properties": {
+    "code": "Nag-8",
+    "river": "Nag",
+    "detail": "Jagnade chowk, Ganeshnagar, Azamshan layout",
+    "total_coliform_cfu100ml": 180000.0,
+    "faecal_coliform_cfu100ml": 100000.0,
+    "do_mgl": 1.1,
+    "cod_mgl": 40.95,
+    "tkn_mgl": 12.9,
+    "phosphate_mgl": 4.4,
+    "ph": 7.83,
+    "ec_mscm": 0.631,
+    "tds_mgl": 316.0,
+    "nitrate_mgl": null,
+    "cpcb_class_d_do_ok": false,
+    "source_type": "river"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     79.14941666666667,
+     21.148027777777777
+    ]
+   },
+   "properties": {
+    "code": "Nag-9",
+    "river": "Nag",
+    "detail": "Centre point school Wardhmannagar",
+    "total_coliform_cfu100ml": 140000.0,
+    "faecal_coliform_cfu100ml": 80000.0,
+    "do_mgl": 1.2,
+    "cod_mgl": 36.66,
+    "tkn_mgl": 10.1,
+    "phosphate_mgl": 5.13,
+    "ph": 7.83,
+    "ec_mscm": 0.7,
+    "tds_mgl": 350.0,
+    "nitrate_mgl": 0.01,
+    "cpcb_class_d_do_ok": false,
+    "source_type": "river"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     79.18011666666668,
+     21.165991666666667
+    ]
+   },
+   "properties": {
+    "code": "Nag-10",
+    "river": "Nag",
+    "detail": "Nag River end point",
+    "total_coliform_cfu100ml": 220000.0,
+    "faecal_coliform_cfu100ml": 100000.0,
+    "do_mgl": 0.48,
+    "cod_mgl": 40.48,
+    "tkn_mgl": 8.75,
+    "phosphate_mgl": 4.74,
+    "ph": 8.04,
+    "ec_mscm": 0.808,
+    "tds_mgl": 404.0,
+    "nitrate_mgl": 0.01,
+    "cpcb_class_d_do_ok": false,
+    "source_type": "river"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     79.04694444444445,
+     21.194027777777777
+    ]
+   },
+   "properties": {
+    "code": "Pilli-1",
+    "river": "Pilli",
+    "detail": "Initial sampling point (Gorewada)",
+    "total_coliform_cfu100ml": 320000.0,
+    "faecal_coliform_cfu100ml": 220000.0,
+    "do_mgl": 4.2,
+    "cod_mgl": 19.05,
+    "tkn_mgl": 5.6,
+    "phosphate_mgl": 2.74,
+    "ph": 8.15,
+    "ec_mscm": 0.493,
+    "tds_mgl": 247.0,
+    "nitrate_mgl": 0.1,
+    "cpcb_class_d_do_ok": true,
+    "source_type": "river"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     79.06280555555556,
+     21.190333333333335
+    ]
+   },
+   "properties": {
+    "code": "Pilli-2",
+    "river": "Pilli",
+    "detail": "1st and 2nd drain mix (St. Mary school, 1/F Jafarnagar)",
+    "total_coliform_cfu100ml": 320000.0,
+    "faecal_coliform_cfu100ml": 150000.0,
+    "do_mgl": 2.87,
+    "cod_mgl": 10.95,
+    "tkn_mgl": 15.4,
+    "phosphate_mgl": 4.65,
+    "ph": 8.21,
+    "ec_mscm": 0.671,
+    "tds_mgl": 336.0,
+    "nitrate_mgl": 0.27,
+    "cpcb_class_d_do_ok": false,
+    "source_type": "river"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     79.07854444444445,
+     21.189877777777777
+    ]
+   },
+   "properties": {
+    "code": "Pilli-3",
+    "river": "Pilli",
+    "detail": "Suflam seed company (behind Mahindra Showroom, Koradi)",
+    "total_coliform_cfu100ml": 340000.0,
+    "faecal_coliform_cfu100ml": 120000.0,
+    "do_mgl": 1.16,
+    "cod_mgl": 11.43,
+    "tkn_mgl": 12.9,
+    "phosphate_mgl": 5.65,
+    "ph": 8.16,
+    "ec_mscm": 0.73,
+    "tds_mgl": 365.0,
+    "nitrate_mgl": 0.14,
+    "cpcb_class_d_do_ok": false,
+    "source_type": "river"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     79.09114166666666,
+     21.193213888888888
+    ]
+   },
+   "properties": {
+    "code": "Pilli-4",
+    "river": "Pilli",
+    "detail": "Nara Kabristan Nara Road (Bridge)",
+    "total_coliform_cfu100ml": 420000.0,
+    "faecal_coliform_cfu100ml": 180000.0,
+    "do_mgl": 0.92,
+    "cod_mgl": 11.43,
+    "tkn_mgl": 7.7,
+    "phosphate_mgl": 3.89,
+    "ph": 8.16,
+    "ec_mscm": 0.735,
+    "tds_mgl": 368.0,
+    "nitrate_mgl": 0.25,
+    "cpcb_class_d_do_ok": false,
+    "source_type": "river"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     79.10241666666666,
+     21.199444444444445
+    ]
+   },
+   "properties": {
+    "code": "Pilli-5",
+    "river": "Pilli",
+    "detail": "Pilli river Nari bridge -2",
+    "total_coliform_cfu100ml": 100000.0,
+    "faecal_coliform_cfu100ml": 140000.0,
+    "do_mgl": 0.74,
+    "cod_mgl": 7.62,
+    "tkn_mgl": 6.65,
+    "phosphate_mgl": 4.87,
+    "ph": 8.21,
+    "ec_mscm": 0.744,
+    "tds_mgl": 372.0,
+    "nitrate_mgl": 0.17,
+    "cpcb_class_d_do_ok": false,
+    "source_type": "river"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     79.1341388888889,
+     21.179819444444444
+    ]
+   },
+   "properties": {
+    "code": "Pilli-6",
+    "river": "Pilli",
+    "detail": "Bhilgaon road near Rizwan motor",
+    "total_coliform_cfu100ml": 140000.0,
+    "faecal_coliform_cfu100ml": 300000.0,
+    "do_mgl": 0.95,
+    "cod_mgl": 14.76,
+    "tkn_mgl": 14.7,
+    "phosphate_mgl": 4.85,
+    "ph": 8.19,
+    "ec_mscm": 0.78,
+    "tds_mgl": 390.0,
+    "nitrate_mgl": 0.48,
+    "cpcb_class_d_do_ok": false,
+    "source_type": "river"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     79.15280555555556,
+     21.17925
+    ]
+   },
+   "properties": {
+    "code": "Pilli-7",
+    "river": "Pilli",
+    "detail": "Kalamnagao police chowki",
+    "total_coliform_cfu100ml": 80000.0,
+    "faecal_coliform_cfu100ml": 60000.0,
+    "do_mgl": 0.78,
+    "cod_mgl": 7.62,
+    "tkn_mgl": 8.75,
+    "phosphate_mgl": 6.06,
+    "ph": 8.03,
+    "ec_mscm": 0.784,
+    "tds_mgl": 394.0,
+    "nitrate_mgl": 0.19,
+    "cpcb_class_d_do_ok": false,
+    "source_type": "river"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     79.179,
+     21.166138888888888
+    ]
+   },
+   "properties": {
+    "code": "Pilli-8",
+    "river": "Pilli",
+    "detail": "Blossom School (Pawangao) (Mixing of Nag and Pilli)",
+    "total_coliform_cfu100ml": 40000.0,
+    "faecal_coliform_cfu100ml": 40000.0,
+    "do_mgl": 1.18,
+    "cod_mgl": 7.62,
+    "tkn_mgl": 6.3,
+    "phosphate_mgl": 6.04,
+    "ph": 8.15,
+    "ec_mscm": 0.776,
+    "tds_mgl": 388.0,
+    "nitrate_mgl": 0.3,
+    "cpcb_class_d_do_ok": false,
+    "source_type": "river"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     79.05963333333332,
+     21.070219444444444
+    ]
+   },
+   "properties": {
+    "code": "Pora-1",
+    "river": "Pora",
+    "detail": "-",
+    "total_coliform_cfu100ml": 240000.0,
+    "faecal_coliform_cfu100ml": 10000.0,
+    "do_mgl": 4.8,
+    "cod_mgl": 14.29,
+    "tkn_mgl": 9.1,
+    "phosphate_mgl": 4.26,
+    "ph": 8.46,
+    "ec_mscm": 0.807,
+    "tds_mgl": 404.0,
+    "nitrate_mgl": 1.48,
+    "cpcb_class_d_do_ok": true,
+    "source_type": "river"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     79.12453333333333,
+     21.085541666666664
+    ]
+   },
+   "properties": {
+    "code": "Pora-2",
+    "river": "Pora",
+    "detail": "-",
+    "total_coliform_cfu100ml": 460000.0,
+    "faecal_coliform_cfu100ml": 10000.0,
+    "do_mgl": 2.21,
+    "cod_mgl": null,
+    "tkn_mgl": 5.6,
+    "phosphate_mgl": 4.36,
+    "ph": 8.36,
+    "ec_mscm": 0.762,
+    "tds_mgl": 381.0,
+    "nitrate_mgl": 0.17,
+    "cpcb_class_d_do_ok": false,
+    "source_type": "river"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     79.14358611111112,
+     21.08641111111111
+    ]
+   },
+   "properties": {
+    "code": "Pora-3",
+    "river": "Pora",
+    "detail": "-",
+    "total_coliform_cfu100ml": 240000.0,
+    "faecal_coliform_cfu100ml": 120000.0,
+    "do_mgl": 0.74,
+    "cod_mgl": 8.57,
+    "tkn_mgl": 12.2,
+    "phosphate_mgl": 4.98,
+    "ph": 8.3,
+    "ec_mscm": 0.766,
+    "tds_mgl": 383.0,
+    "nitrate_mgl": 0.13,
+    "cpcb_class_d_do_ok": false,
+    "source_type": "river"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     79.14807222222223,
+     21.08736111111111
+    ]
+   },
+   "properties": {
+    "code": "Pora-4",
+    "river": "Pora",
+    "detail": "-",
+    "total_coliform_cfu100ml": 560000.0,
+    "faecal_coliform_cfu100ml": 320000.0,
+    "do_mgl": 0.63,
+    "cod_mgl": 25.71,
+    "tkn_mgl": 7.35,
+    "phosphate_mgl": 4.69,
+    "ph": 8.29,
+    "ec_mscm": 0.854,
+    "tds_mgl": 427.0,
+    "nitrate_mgl": 0.38,
+    "cpcb_class_d_do_ok": false,
+    "source_type": "river"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     79.16192777777778,
+     21.09116111111111
+    ]
+   },
+   "properties": {
+    "code": "Pora-5",
+    "river": "Pora",
+    "detail": "Pora river end point",
+    "total_coliform_cfu100ml": 280000.0,
+    "faecal_coliform_cfu100ml": 200000.0,
+    "do_mgl": 0.81,
+    "cod_mgl": 56.67,
+    "tkn_mgl": 9.8,
+    "phosphate_mgl": 4.29,
+    "ph": 8.35,
+    "ec_mscm": 0.799,
+    "tds_mgl": 398.0,
+    "nitrate_mgl": 0.31,
+    "cpcb_class_d_do_ok": false,
+    "source_type": "river"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     79.0261111111111,
+     21.09472222222222
+    ]
+   },
+   "properties": {
+    "code": "NGW-1",
+    "well_type": "DW",
+    "detail": "Shivangaon (Nagpur-Wardha highway)",
+    "source_type": "groundwater_city",
+    "total_coliform_cfu100ml": 56.0,
+    "faecal_coliform_cfu100ml": 14.0,
+    "is10500_coliform_pass": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     79.05916666666667,
+     21.066666666666666
+    ]
+   },
+   "properties": {
+    "code": "NGW-2",
+    "well_type": "BW",
+    "detail": "Near drainage line",
+    "source_type": "groundwater_city",
+    "total_coliform_cfu100ml": 128.0,
+    "faecal_coliform_cfu100ml": 80.0,
+    "is10500_coliform_pass": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     79.125,
+     21.09638888888889
+    ]
+   },
+   "properties": {
+    "code": "NGW-3",
+    "well_type": "DW",
+    "detail": "Tajeshwar Nagar",
+    "source_type": "groundwater_city",
+    "total_coliform_cfu100ml": 76.0,
+    "faecal_coliform_cfu100ml": 46.0,
+    "is10500_coliform_pass": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     79.13916666666667,
+     21.130555555555556
+    ]
+   },
+   "properties": {
+    "code": "NGW-4",
+    "well_type": "DW",
+    "detail": "Vidya Nagar",
+    "source_type": "groundwater_city",
+    "total_coliform_cfu100ml": 88.0,
+    "faecal_coliform_cfu100ml": 24.0,
+    "is10500_coliform_pass": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     79.10444444444444,
+     21.110277777777778
+    ]
+   },
+   "properties": {
+    "code": "NGW-5",
+    "well_type": "DW",
+    "detail": "Ladika Layout",
+    "source_type": "groundwater_city",
+    "total_coliform_cfu100ml": 154.0,
+    "faecal_coliform_cfu100ml": 58.0,
+    "is10500_coliform_pass": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     79.07277777777777,
+     21.121666666666666
+    ]
+   },
+   "properties": {
+    "code": "NGW-6",
+    "well_type": "DW",
+    "detail": "CSIR-NEERI campus",
+    "source_type": "groundwater_city",
+    "total_coliform_cfu100ml": 82.0,
+    "faecal_coliform_cfu100ml": 18.0,
+    "is10500_coliform_pass": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     79.04138888888889,
+     21.179166666666667
+    ]
+   },
+   "properties": {
+    "code": "NGW-7",
+    "well_type": "DW",
+    "detail": "Narmada Colony",
+    "source_type": "groundwater_city",
+    "total_coliform_cfu100ml": 112.0,
+    "faecal_coliform_cfu100ml": 28.0,
+    "is10500_coliform_pass": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     79.08083333333333,
+     21.200833333333332
+    ]
+   },
+   "properties": {
+    "code": "NGW-8",
+    "well_type": "DW",
+    "detail": "OM Nagar",
+    "source_type": "groundwater_city",
+    "total_coliform_cfu100ml": 164.0,
+    "faecal_coliform_cfu100ml": 54.0,
+    "is10500_coliform_pass": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     79.16667222222223,
+     21.16444444444444
+    ]
+   },
+   "properties": {
+    "code": "NGW-9",
+    "well_type": "DW",
+    "detail": "Bharatwada",
+    "source_type": "groundwater_city",
+    "total_coliform_cfu100ml": 136.0,
+    "faecal_coliform_cfu100ml": 68.0,
+    "is10500_coliform_pass": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     79.1061111111111,
+     21.168333333333333
+    ]
+   },
+   "properties": {
+    "code": "NGW-10",
+    "well_type": "DW",
+    "detail": "Balabhaupeth",
+    "source_type": "groundwater_city",
+    "total_coliform_cfu100ml": 88.0,
+    "faecal_coliform_cfu100ml": 22.0,
+    "is10500_coliform_pass": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     79.11194444444443,
+     21.13277777777778
+    ]
+   },
+   "properties": {
+    "code": "NGW-11",
+    "well_type": "DW",
+    "detail": "Reshimbagh",
+    "source_type": "groundwater_city",
+    "total_coliform_cfu100ml": 90.0,
+    "faecal_coliform_cfu100ml": 30.0,
+    "is10500_coliform_pass": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     79.05916666666667,
+     21.154999999999998
+    ]
+   },
+   "properties": {
+    "code": "NGW-12",
+    "well_type": "DW",
+    "detail": "Kadimbagh",
+    "source_type": "groundwater_city",
+    "total_coliform_cfu100ml": 46.0,
+    "faecal_coliform_cfu100ml": 10.0,
+    "is10500_coliform_pass": false
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     79.1590347,
+     21.1378096
+    ]
+   },
+   "properties": {
+    "code": "Bhandewadi , Nagpur",
+    "source_type": "stp",
+    "commissioned": "2016",
+    "status": "nO)p erational",
+    "capacity_mld": 130.0,
+    "utilisation_mld": 130.0,
+    "technology": "SBR"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     79.155832,
+     21.1381883
+    ]
+   },
+   "properties": {
+    "code": "Bhandewadi , Nagpur",
+    "source_type": "stp",
+    "commissioned": "2018",
+    "status": "Operational",
+    "capacity_mld": 200.0,
+    "utilisation_mld": 200.0,
+    "technology": "SBR"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     79.088943,
+     21.137628
+    ]
+   },
+   "properties": {
+    "code": "Mokshdham , Nagpur",
+    "source_type": "stp",
+    "commissioned": "2017",
+    "status": "Operational",
+    "capacity_mld": 5.0,
+    "utilisation_mld": 5.0,
+    "technology": "MBBR"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     79.079131,
+     21.19032
+    ]
+   },
+   "properties": {
+    "code": "Mankapur, Nagpur",
+    "source_type": "stp",
+    "commissioned": "2017",
+    "status": "Operational",
+    "capacity_mld": 5.0,
+    "utilisation_mld": 5.0,
+    "technology": "MBBR"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     79.074979,
+     21.086964
+    ]
+   },
+   "properties": {
+    "code": "Somalwada- 1",
+    "source_type": "stp",
+    "commissioned": "2021",
+    "status": "Operational",
+    "capacity_mld": 20.0,
+    "utilisation_mld": 20.0,
+    "technology": "SBR"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     79.026774,
+     21.166345
+    ]
+   },
+   "properties": {
+    "code": "Hazaripaha d",
+    "source_type": "stp",
+    "commissioned": "2019",
+    "status": "Operational",
+    "capacity_mld": 4.0,
+    "utilisation_mld": 4.0,
+    "technology": "SBR"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     79.011537,
+     21.171881
+    ]
+   },
+   "properties": {
+    "code": "Dabha",
+    "source_type": "stp",
+    "commissioned": "2018",
+    "status": "Operational",
+    "capacity_mld": 5.0,
+    "utilisation_mld": 5.0,
+    "technology": "SBR"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     79.049576,
+     21.099773
+    ]
+   },
+   "properties": {
+    "code": "Sonegaon",
+    "source_type": "stp",
+    "commissioned": "2019",
+    "status": "Operational",
+    "capacity_mld": 0.3,
+    "utilisation_mld": 0.3,
+    "technology": "Phytorid Technology"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     79.020094,
+     21.15095
+    ]
+   },
+   "properties": {
+    "code": "Kachimet",
+    "source_type": "stp",
+    "commissioned": "2018",
+    "status": "Operational",
+    "capacity_mld": 1.0,
+    "utilisation_mld": 1.0,
+    "technology": "Soil Bio Technology"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     79.07091,
+     21.088322
+    ]
+   },
+   "properties": {
+    "code": "Somalwada- 2",
+    "source_type": "stp",
+    "commissioned": "2022",
+    "status": "Operational",
+    "capacity_mld": 20.0,
+    "utilisation_mld": 20.0,
+    "technology": "SBR"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     79.121171,
+     21.172177
+    ]
+   },
+   "properties": {
+    "code": "Itabhatti",
+    "source_type": "stp",
+    "commissioned": "2022",
+    "status": "Operational",
+    "capacity_mld": 10.0,
+    "utilisation_mld": 10.0,
+    "technology": "SBR"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     79.018274,
+     21.129474
+    ]
+   },
+   "properties": {
+    "code": "Ambazari",
+    "source_type": "stp",
+    "commissioned": "2021",
+    "status": "Operational",
+    "capacity_mld": 3.2,
+    "utilisation_mld": 3.2,
+    "technology": "Phytorid Technology"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     79.192,
+     21.087
+    ]
+   },
+   "properties": {
+    "code": "Narsala",
+    "source_type": "stp",
+    "commissioned": "WIP",
+    "status": "Trial run",
+    "capacity_mld": 20.0,
+    "utilisation_mld": 20.0,
+    "technology": "SBR"
+   }
+  }
+ ]
+}

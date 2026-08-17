@@ -1,0 +1,6 @@
+class,designated_best_use,ph_min,ph_max,do_min_mgl,bod_max_mgl,total_coliform_max_mpn_100ml,ec_max_uscm,sar_max,boron_max_mgl,free_ammonia_max_mgl
+A,Drinking water source without conventional treatment but after disinfection,6.5,8.5,6.0,,50,,,,
+B,Outdoor bathing,6.5,8.5,5.0,3.0,500,,,,
+C,Drinking water source with conventional treatment followed by disinfection,6.5,8.5,4.0,3.0,5000,,,,
+D,Wildlife propagation and fisheries,6.5,8.5,4.0,,,,,,
+E,Irrigation and industrial cooling,6.0,8.5,,,,2250,26,2.0,
